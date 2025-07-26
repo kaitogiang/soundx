@@ -6,7 +6,7 @@ import 'package:soundx/features/shared/presentation/base/widget_view.dart';
 
 import '../../../../core/constants/app_duration.dart';
 
-enum AppButtonType { outline, normal, primary }
+enum AppButtonType { outline, normal, primary, link }
 
 //Passed properties to the widget
 class AppButton extends StatefulWidget {
@@ -36,16 +36,13 @@ class AppButton extends StatefulWidget {
 
 //Separate logic only
 class _AppButtonController extends State<AppButton> {
-  bool _isLongPress = false;
-
-  void _handleLongPress(bool isLongPress) {
-    setState(() {
-      _isLongPress = isLongPress;
-    });
-  }
-
   // Configuration for the button, computed once for efficiency
-  ({TextStyle labelStyle, Color backgroundColor, EdgeInsets padding})
+  ({
+    TextStyle labelStyle,
+    Color backgroundColor,
+    EdgeInsets padding,
+    TextStyle labelLinkStyle,
+  })
   get appButtonConfig => (
     labelStyle: AppTexStyle.textSize16(fontWeight: FontWeight.bold),
     backgroundColor: widget.backgroundColor ?? AppColors.greenColor,
@@ -53,19 +50,21 @@ class _AppButtonController extends State<AppButton> {
       horizontal: widget.horizontalPadding ?? 20,
       vertical: widget.verticalPadding ?? 16,
     ),
+    labelLinkStyle: AppTexStyle.textSize16(
+      decoration: TextDecoration.underline,
+    ),
   );
-
-  Color get getBackgroundColor {
-    return _isLongPress
-        ? appButtonConfig.backgroundColor.toDarker(0.02)
-        : appButtonConfig.backgroundColor;
-  }
 
   Color get darkenBackgroundColor =>
       appButtonConfig.backgroundColor.toDarker(0.02);
 
   @override
-  Widget build(BuildContext context) => _AppButtonView(this);
+  Widget build(BuildContext context) {
+    if (widget.buttonType == AppButtonType.link) {
+      return _AppButtonLink(this);
+    }
+    return _AppButtonView(this);
+  }
 }
 
 //Separate UI only
@@ -75,41 +74,47 @@ class _AppButtonView extends WidgetView<AppButton, _AppButtonController> {
   Widget build(BuildContext context) {
     final config = state.appButtonConfig;
 
-    return GestureDetector(
-      onLongPressStart: (details) {
-        state._handleLongPress(true);
-        widget.onLongPressed?.call();
-      },
-      onLongPressEnd: (details) {
-        state._handleLongPress(false);
-      },
-      child: AnimatedContainer(
-        duration: AppDuration.to50Milis(),
-        curve: Curves.linear,
-        child: TextButton(
-          style: TextButton.styleFrom(
-            padding: config.padding,
-            fixedSize: Size.fromWidth(double.maxFinite),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(widget.borderRadius),
-            ),
-            backgroundBuilder: (context, states, child) {
-              if (states.contains(WidgetState.pressed)) {
-                return DecoratedBox(
-                  decoration: BoxDecoration(color: state.darkenBackgroundColor),
-                  child: child,
-                );
-              }
+    return AnimatedContainer(
+      duration: AppDuration.to50Milis(),
+      curve: Curves.linear,
+      child: TextButton(
+        style: TextButton.styleFrom(
+          padding: config.padding,
+          fixedSize: Size.fromWidth(double.maxFinite),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(widget.borderRadius),
+          ),
+          overlayColor: state.darkenBackgroundColor,
+          backgroundBuilder: (context, states, child) {
+            if (states.contains(WidgetState.pressed)) {
               return DecoratedBox(
-                decoration: BoxDecoration(color: state.getBackgroundColor),
+                decoration: BoxDecoration(color: state.darkenBackgroundColor),
                 child: child,
               );
-            },
-          ),
-          onPressed: widget.onPressed,
-          child: Text(widget.label, style: config.labelStyle),
+            }
+            return DecoratedBox(
+              decoration: BoxDecoration(color: config.backgroundColor),
+              child: child,
+            );
+          },
         ),
+        onPressed: widget.onPressed,
+        child: Text(widget.label, style: config.labelStyle),
       ),
+    );
+  }
+}
+
+class _AppButtonLink extends WidgetView<AppButton, _AppButtonController> {
+  const _AppButtonLink(super.state, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final config = state.appButtonConfig;
+    return TextButton(
+      style: TextButton.styleFrom(overlayColor: AppColors.transparent),
+      onPressed: widget.onPressed,
+      child: Text(widget.label, style: config.labelLinkStyle),
     );
   }
 }
