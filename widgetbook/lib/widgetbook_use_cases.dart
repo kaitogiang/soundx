@@ -34,6 +34,14 @@ Widget defaultAppButton(BuildContext context) {
           },
           buttonType: AppButtonType.outline,
         ),
+        10.0.verticalGap,
+        AppButton(
+          onPressed: () {
+            print('Press button icon');
+          },
+          label: 'Button With Icon',
+          leadingIcon: AppAssets.iconsGoogleIcon.svg(),
+        ),
         AppButton(
           label: 'forgot password',
           buttonType: AppButtonType.link,

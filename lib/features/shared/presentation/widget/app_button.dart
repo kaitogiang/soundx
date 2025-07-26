@@ -145,7 +145,23 @@ class _AppButtonView extends WidgetView<AppButton, _AppButtonController> {
           },
         ),
         onPressed: widget.onPressed,
-        child: Text(widget.label, style: config.labelStyle),
+        child: SizedBox(
+          width: double.maxFinite,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Text(widget.label, style: config.labelStyle),
+              Builder(
+                builder: (context) {
+                  if (widget.leadingIcon != null) {
+                    return Positioned(left: 0, child: widget.leadingIcon!);
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
