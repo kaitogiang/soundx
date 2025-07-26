@@ -20,12 +20,14 @@ class AppTexStyle {
     Color textColor = Colors.black,
     double fontSize = 16.0,
     FontWeight fontWeight = FontWeight.w400,
+    TextDecoration decoration = TextDecoration.none,
   }) {
     return GoogleFonts.raleway(
       textStyle: TextStyle(
         color: textColor,
         fontSize: fontSize,
         fontWeight: fontWeight,
+        decoration: decoration,
       ),
     );
   }

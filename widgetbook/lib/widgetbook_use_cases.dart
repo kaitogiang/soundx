@@ -18,11 +18,30 @@ Widget defaultAppTextField(BuildContext context) {
 Widget defaultAppButton(BuildContext context) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
-    child: AppButton(
-      label: 'Login',
-      onPressed: () {
-        print('Press button');
-      },
+    child: Column(
+      children: [
+        AppButton(
+          label: 'Login',
+          onPressed: () {
+            print('Press button');
+          },
+        ),
+        10.0.verticalGap,
+        AppButton(
+          label: 'Login',
+          onPressed: () {
+            print('Press button');
+          },
+          buttonType: AppButtonType.outline,
+        ),
+        AppButton(
+          label: 'forgot password',
+          buttonType: AppButtonType.link,
+          onPressed: () {
+            print('Click on forgot password');
+          },
+        ),
+      ],
     ),
   );
 }
