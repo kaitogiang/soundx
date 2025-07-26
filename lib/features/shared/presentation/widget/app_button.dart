@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:soundx/core/constants/app_color.dart';
-import 'package:soundx/core/constants/app_duration.dart';
 import 'package:soundx/core/constants/app_text_style.dart';
 import 'package:soundx/core/extensions/color_extension.dart';
+import 'package:soundx/features/shared/presentation/base/widget_view.dart';
+
+import '../../../../core/constants/app_duration.dart';
 
 enum AppButtonType { outline, normal, primary }
 
+//Passed properties to the widget
 class AppButton extends StatefulWidget {
   final VoidCallback? onPressed;
+  final VoidCallback? onLongPressed;
   final String label;
   final Color? backgroundColor;
   final double? horizontalPadding;
@@ -18,6 +22,7 @@ class AppButton extends StatefulWidget {
     super.key,
     required this.label,
     this.onPressed,
+    this.onLongPressed,
     this.backgroundColor,
     this.horizontalPadding,
     this.verticalPadding,
@@ -26,10 +31,11 @@ class AppButton extends StatefulWidget {
   });
 
   @override
-  State<AppButton> createState() => _AppButtonState();
+  State<AppButton> createState() => _AppButtonController();
 }
 
-class _AppButtonState extends State<AppButton> {
+//Separate logic only
+class _AppButtonController extends State<AppButton> {
   bool _isLongPress = false;
 
   void _handleLongPress(bool isLongPress) {
@@ -38,57 +44,70 @@ class _AppButtonState extends State<AppButton> {
     });
   }
 
+  // Configuration for the button, computed once for efficiency
+  ({TextStyle labelStyle, Color backgroundColor, EdgeInsets padding})
+  get appButtonConfig => (
+    labelStyle: AppTexStyle.textSize16(fontWeight: FontWeight.bold),
+    backgroundColor: widget.backgroundColor ?? AppColors.greenColor,
+    padding: EdgeInsets.symmetric(
+      horizontal: widget.horizontalPadding ?? 20,
+      vertical: widget.verticalPadding ?? 16,
+    ),
+  );
+
+  Color get getBackgroundColor {
+    return _isLongPress
+        ? appButtonConfig.backgroundColor.toDarker(0.02)
+        : appButtonConfig.backgroundColor;
+  }
+
+  Color get darkenBackgroundColor =>
+      appButtonConfig.backgroundColor.toDarker(0.02);
+
+  @override
+  Widget build(BuildContext context) => _AppButtonView(this);
+}
+
+//Separate UI only
+class _AppButtonView extends WidgetView<AppButton, _AppButtonController> {
+  const _AppButtonView(super.state, {super.key});
   @override
   Widget build(BuildContext context) {
-    final normalBackground = widget.backgroundColor ?? AppColors.greenColor;
-    final appButtonConfig = (
-      labelStyle: AppTexStyle.textSize16(fontWeight: FontWeight.bold),
-      backgroundColor: normalBackground,
-      padding: EdgeInsets.symmetric(
-        horizontal: widget.horizontalPadding ?? 20,
-        vertical: widget.verticalPadding ?? 16,
-      ),
-    );
+    final config = state.appButtonConfig;
 
     return GestureDetector(
       onLongPressStart: (details) {
-        _handleLongPress(true);
+        state._handleLongPress(true);
+        widget.onLongPressed?.call();
       },
       onLongPressEnd: (details) {
-        _handleLongPress(false);
+        state._handleLongPress(false);
       },
       child: AnimatedContainer(
         duration: AppDuration.to50Milis(),
         curve: Curves.linear,
         child: TextButton(
           style: TextButton.styleFrom(
-            padding: appButtonConfig.padding,
+            padding: config.padding,
             fixedSize: Size.fromWidth(double.maxFinite),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(widget.borderRadius),
             ),
             backgroundBuilder: (context, states, child) {
-              Color actualColor =
-                  _isLongPress
-                      ? normalBackground.toDarker(0.02)
-                      : normalBackground;
               if (states.contains(WidgetState.pressed)) {
-                print('Pressed');
                 return DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: normalBackground.toDarker(0.02),
-                  ),
+                  decoration: BoxDecoration(color: state.darkenBackgroundColor),
                   child: child,
                 );
               }
               return DecoratedBox(
-                decoration: BoxDecoration(color: actualColor),
+                decoration: BoxDecoration(color: state.getBackgroundColor),
                 child: child,
               );
             },
           ),
           onPressed: widget.onPressed,
-          child: Text(widget.label, style: appButtonConfig.labelStyle),
+          child: Text(widget.label, style: config.labelStyle),
         ),
       ),
     );
