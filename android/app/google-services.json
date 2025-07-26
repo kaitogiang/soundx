@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "436319949454",
+    "project_id": "musicapp-aa75f",
+    "storage_bucket": "musicapp-aa75f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:436319949454:android:2cbd6133fbfaae530defdf",
+        "android_client_info": {
+          "package_name": "com.victorwibu.soundx"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6ey-i7QIeVO5OBxarfFCk5bj5-hrD25I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
