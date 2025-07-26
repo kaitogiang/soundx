@@ -18,6 +18,8 @@ class AppButton extends StatefulWidget {
   final double? verticalPadding;
   final AppButtonType? buttonType;
   final double borderRadius;
+  final Color? borderColor;
+  final Widget? leadingIcon;
   const AppButton({
     super.key,
     required this.label,
@@ -28,6 +30,8 @@ class AppButton extends StatefulWidget {
     this.verticalPadding,
     this.buttonType = AppButtonType.primary,
     this.borderRadius = 9,
+    this.borderColor,
+    this.leadingIcon,
   });
 
   @override
@@ -46,26 +50,57 @@ class _AppButtonController extends State<AppButton> {
 
   // Configuration for the button, computed once for efficiency
   ({
-    TextStyle labelStyle,
     Color backgroundColor,
-    EdgeInsets padding,
+    Color borderColor,
     TextStyle labelLinkStyle,
+    TextStyle labelStyle,
+    EdgeInsets padding,
   })
-  get appButtonConfig => (
-    labelStyle: AppTexStyle.textSize16(fontWeight: FontWeight.bold),
-    backgroundColor: widget.backgroundColor ?? AppColors.greenColor,
-    padding: EdgeInsets.symmetric(
+  get appButtonConfig {
+    final isOutline = widget.buttonType == AppButtonType.outline;
+
+    final Color actualBackgroundColor =
+        isOutline
+            ? AppColors.transparent
+            : widget.backgroundColor ?? AppColors.greenColor;
+
+    final Color actualBorderColor =
+        isOutline
+            ? widget.borderColor ?? AppColors.greenColor
+            : AppColors.transparent;
+
+    final EdgeInsets resolvedPadding = EdgeInsets.symmetric(
       horizontal: widget.horizontalPadding ?? 20,
       vertical: widget.verticalPadding ?? 16,
-    ),
-    labelLinkStyle: AppTexStyle.textSize16(
+    );
+
+    final TextStyle resolvedLabelStyle = AppTexStyle.textSize16(
+      fontWeight: FontWeight.bold,
+    );
+
+    final TextStyle resolvedLinkStyle = AppTexStyle.textSize16(
       decoration: TextDecoration.underline,
       textColor: _isLinkPressed ? AppColors.linkColor : AppColors.blackColor,
-    ),
-  );
+    );
+
+    return (
+      labelStyle: resolvedLabelStyle,
+      backgroundColor: actualBackgroundColor,
+      padding: resolvedPadding,
+      labelLinkStyle: resolvedLinkStyle,
+      borderColor: actualBorderColor,
+    );
+  }
 
   Color get darkenBackgroundColor =>
       appButtonConfig.backgroundColor.toDarker(0.02);
+
+  Widget resolveOverlayColor(Set<WidgetState> buttonState) {
+    if (buttonState.contains(WidgetState.pressed)) {
+      return Positioned.fill(child: Container(color: darkenBackgroundColor));
+    }
+    return SizedBox.shrink();
+  }
 
   Color resolveTextLinkColor(Set<WidgetState> buttonState) {
     if (buttonState.contains(WidgetState.pressed)) {
@@ -99,8 +134,9 @@ class _AppButtonView extends WidgetView<AppButton, _AppButtonController> {
           fixedSize: Size.fromWidth(double.maxFinite),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(widget.borderRadius),
+            side: BorderSide(color: config.borderColor, width: 2),
           ),
-          overlayColor: state.darkenBackgroundColor,
+          overlayColor: AppColors.transparent,
           backgroundBuilder: (context, states, child) {
             return DecoratedBox(
               decoration: BoxDecoration(color: config.backgroundColor),

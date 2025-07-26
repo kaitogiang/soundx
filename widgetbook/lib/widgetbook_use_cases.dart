@@ -26,6 +26,14 @@ Widget defaultAppButton(BuildContext context) {
             print('Press button');
           },
         ),
+        10.0.verticalGap,
+        AppButton(
+          label: 'Login',
+          onPressed: () {
+            print('Press button');
+          },
+          buttonType: AppButtonType.outline,
+        ),
         AppButton(
           label: 'forgot password',
           buttonType: AppButtonType.link,
