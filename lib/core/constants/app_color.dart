@@ -8,6 +8,7 @@ class AppColors {
   static Color get lightGreenColor => Color(0xFFDDEBE5);
   static Color get mediumGreenColor => Color(0xFF0EC679);
   static Color get transparent => Colors.transparent;
+  static Color get linkColor => Color(0xFF1E90FF);
 
   static Color darken(Color color, [double amount = .1]) {
     final hsl = HSLColor.fromColor(color);

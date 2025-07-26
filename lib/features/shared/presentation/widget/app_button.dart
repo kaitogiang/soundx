@@ -36,6 +36,14 @@ class AppButton extends StatefulWidget {
 
 //Separate logic only
 class _AppButtonController extends State<AppButton> {
+  bool _isLinkPressed = false;
+
+  void _handleLinkPressed() {
+    setState(() {
+      _isLinkPressed = !_isLinkPressed;
+    });
+  }
+
   // Configuration for the button, computed once for efficiency
   ({
     TextStyle labelStyle,
@@ -52,11 +60,19 @@ class _AppButtonController extends State<AppButton> {
     ),
     labelLinkStyle: AppTexStyle.textSize16(
       decoration: TextDecoration.underline,
+      textColor: _isLinkPressed ? AppColors.linkColor : AppColors.blackColor,
     ),
   );
 
   Color get darkenBackgroundColor =>
       appButtonConfig.backgroundColor.toDarker(0.02);
+
+  Color resolveTextLinkColor(Set<WidgetState> buttonState) {
+    if (buttonState.contains(WidgetState.pressed)) {
+      return AppColors.linkColor;
+    }
+    return _isLinkPressed ? AppColors.linkColor : AppColors.blackColor;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,12 +102,6 @@ class _AppButtonView extends WidgetView<AppButton, _AppButtonController> {
           ),
           overlayColor: state.darkenBackgroundColor,
           backgroundBuilder: (context, states, child) {
-            if (states.contains(WidgetState.pressed)) {
-              return DecoratedBox(
-                decoration: BoxDecoration(color: state.darkenBackgroundColor),
-                child: child,
-              );
-            }
             return DecoratedBox(
               decoration: BoxDecoration(color: config.backgroundColor),
               child: child,
@@ -110,11 +120,30 @@ class _AppButtonLink extends WidgetView<AppButton, _AppButtonController> {
 
   @override
   Widget build(BuildContext context) {
-    final config = state.appButtonConfig;
-    return TextButton(
-      style: TextButton.styleFrom(overlayColor: AppColors.transparent),
-      onPressed: widget.onPressed,
-      child: Text(widget.label, style: config.labelLinkStyle),
+    return GestureDetector(
+      onLongPressStart: (details) {
+        state._handleLinkPressed();
+      },
+      onLongPressEnd: (details) {
+        state._handleLinkPressed();
+      },
+      child: TextButton(
+        style: TextButton.styleFrom(
+          overlayColor: AppColors.transparent,
+          foregroundBuilder: (context, states, child) {
+            final dynamicColor = state.resolveTextLinkColor(states);
+            return DefaultTextStyle(
+              style: AppTexStyle.textSize16(
+                textColor: dynamicColor,
+                decoration: TextDecoration.underline,
+              ),
+              child: child!,
+            );
+          },
+        ),
+        onPressed: widget.onPressed,
+        child: Text(widget.label),
+      ),
     );
   }
 }
