@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:soundx/core/extensions/context_extension.dart';
 import 'package:soundx/soundx.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
@@ -21,7 +22,7 @@ Widget defaultAppButton(BuildContext context) {
     child: Column(
       children: [
         AppButton(
-          label: 'Login',
+          label: context.tr.pageLoginButtonTitle,
           onPressed: () {
             print('Press button');
           },
