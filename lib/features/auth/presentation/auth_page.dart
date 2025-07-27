@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:soundx/features/auth/presentation/pages/login_page.dart';
 
 class AuthPage extends StatelessWidget {
@@ -7,5 +7,4 @@ class AuthPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return LoginPage();
   }
-
 }

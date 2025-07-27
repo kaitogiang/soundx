@@ -18,6 +18,28 @@ final directories = <_i1.WidgetbookNode>[
     name: 'features',
     children: [
       _i1.WidgetbookFolder(
+        name: 'auth',
+        children: [
+          _i1.WidgetbookFolder(
+            name: 'presentation',
+            children: [
+              _i1.WidgetbookFolder(
+                name: 'pages',
+                children: [
+                  _i1.WidgetbookLeafComponent(
+                    name: 'LoginPage',
+                    useCase: _i1.WidgetbookUseCase(
+                      name: 'Default Login Page',
+                      builder: _i2.defaultLoginPage,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+      _i1.WidgetbookFolder(
         name: 'shared',
         children: [
           _i1.WidgetbookFolder(

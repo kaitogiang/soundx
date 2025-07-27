@@ -23,7 +23,14 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "appName": MessageLookupByLibrary.simpleMessage("Ứng dụng SoundX"),
+    "forgotPassword": MessageLookupByLibrary.simpleMessage("Quên mật khẩu?"),
     "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
+    "loginEmailHintText": MessageLookupByLibrary.simpleMessage("Email"),
+    "loginPasswordHintText": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
+    "loginWithGoogle": MessageLookupByLibrary.simpleMessage(
+      "Đăng nhập với Google",
+    ),
+    "or": MessageLookupByLibrary.simpleMessage("Hoặc"),
     "pageLoginButtonTitle": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
     "pageRegisterButtonTitle": MessageLookupByLibrary.simpleMessage("Đăng ký"),
     "welcome": MessageLookupByLibrary.simpleMessage(

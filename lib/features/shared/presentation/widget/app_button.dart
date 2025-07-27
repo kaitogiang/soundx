@@ -74,11 +74,11 @@ class _AppButtonController extends State<AppButton> {
       vertical: widget.verticalPadding ?? 16,
     );
 
-    final TextStyle resolvedLabelStyle = AppTexStyle.textSize16(
+    final TextStyle resolvedLabelStyle = AppTextStyle.textSize16(
       fontWeight: FontWeight.bold,
     );
 
-    final TextStyle resolvedLinkStyle = AppTexStyle.textSize16(
+    final TextStyle resolvedLinkStyle = AppTextStyle.textSize16(
       decoration: TextDecoration.underline,
       textColor: _isLinkPressed ? AppColors.linkColor : AppColors.blackColor,
     );
@@ -185,7 +185,7 @@ class _AppButtonLink extends WidgetView<AppButton, _AppButtonController> {
           foregroundBuilder: (context, states, child) {
             final dynamicColor = state.resolveTextLinkColor(states);
             return DefaultTextStyle(
-              style: AppTexStyle.textSize16(
+              style: AppTextStyle.textSize16(
                 textColor: dynamicColor,
                 decoration: TextDecoration.underline,
               ),

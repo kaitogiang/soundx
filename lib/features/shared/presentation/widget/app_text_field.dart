@@ -104,7 +104,7 @@ class _AppTextFieldState extends State<AppTextField> {
         labelText: widget.labelText,
         prefixIcon: widget.prefixIcon,
         suffixIcon: widget.suffixIcon,
-        hintStyle: AppTexStyle.textSize16(),
+        hintStyle: AppTextStyle.textSize16(),
         suffix: widget.suffix,
         prefix: widget.prefix,
         contentPadding: widget.contentPadding ?? EdgeInsets.all(16),

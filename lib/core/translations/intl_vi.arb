@@ -4,14 +4,22 @@
   "hello": "Xin chào",
   "welcome": "Chào mừng bạn đến với ứng dụng của tôi",
   "@hello": {
-    "description": "một ví dụ đơn giản về cách sử dụng cái này"
+    "description": "an simple example about using this"
   },
   "pageLoginButtonTitle": "Đăng nhập",
   "@pageLoginButtonTitle": {
-    "description": "Tiêu đề nút đăng nhập trong trang đăng nhập"
+    "description": "Login title for the button in login page"
   },
   "pageRegisterButtonTitle": "Đăng ký",
   "@pageRegisterButtonTitle": {
-    "description": "Tiêu đề nút đăng ký trong trang đăng ký"
-  }
+    "description": "Sign up title for the button in register page"
+  },
+  "loginEmailHintText": "Email",
+  "loginPasswordHintText": "Mật khẩu",
+  "forgotPassword": "Quên mật khẩu?",
+  "loginWithGoogle": "Đăng nhập với Google",
+  "or": "Hoặc"
+
+
+
 }

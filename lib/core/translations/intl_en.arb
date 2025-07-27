@@ -13,5 +13,10 @@
   "pageRegisterButtonTitle": "Sign Up",
   "@pageRegisterButtonTitle": {
     "description": "Sign up title for the button in register page"
-  }
+  },
+  "loginEmailHintText": "Email",
+  "loginPasswordHintText": "Password",
+  "forgotPassword": "Forgot Password?",
+  "loginWithGoogle": "Login With Google",
+  "or": "Or"
 }

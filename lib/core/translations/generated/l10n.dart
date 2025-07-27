@@ -98,6 +98,51 @@ class AppTranslate {
       args: [],
     );
   }
+
+  /// `Email`
+  String get loginEmailHintText {
+    return Intl.message(
+      'Email',
+      name: 'loginEmailHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get loginPasswordHintText {
+    return Intl.message(
+      'Password',
+      name: 'loginPasswordHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot Password?`
+  String get forgotPassword {
+    return Intl.message(
+      'Forgot Password?',
+      name: 'forgotPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login With Google`
+  String get loginWithGoogle {
+    return Intl.message(
+      'Login With Google',
+      name: 'loginWithGoogle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Or`
+  String get or {
+    return Intl.message('Or', name: 'or', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppTranslate> {

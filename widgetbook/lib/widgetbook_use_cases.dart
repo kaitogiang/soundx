@@ -54,3 +54,8 @@ Widget defaultAppButton(BuildContext context) {
     ),
   );
 }
+
+@UseCase(name: 'Default Login Page', type: LoginPage)
+Widget defaultLoginPage(BuildContext context) {
+  return LoginPage();
+}

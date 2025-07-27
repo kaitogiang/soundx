@@ -23,7 +23,14 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "appName": MessageLookupByLibrary.simpleMessage("SoundX app"),
+    "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot Password?"),
     "hello": MessageLookupByLibrary.simpleMessage("Hello"),
+    "loginEmailHintText": MessageLookupByLibrary.simpleMessage("Email"),
+    "loginPasswordHintText": MessageLookupByLibrary.simpleMessage("Password"),
+    "loginWithGoogle": MessageLookupByLibrary.simpleMessage(
+      "Login With Google",
+    ),
+    "or": MessageLookupByLibrary.simpleMessage("Or"),
     "pageLoginButtonTitle": MessageLookupByLibrary.simpleMessage("Login"),
     "pageRegisterButtonTitle": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "welcome": MessageLookupByLibrary.simpleMessage("Welcome to my app"),
