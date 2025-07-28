@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:soundx/core/constants/app_color.dart';
-import 'package:soundx/core/constants/app_duration.dart';
 import 'package:soundx/core/constants/app_text_style.dart';
 import 'package:soundx/core/extensions/context_extension.dart';
 import 'package:soundx/features/shared/presentation/base/widget_view.dart';
@@ -17,7 +16,9 @@ class _LoginPageController extends State<LoginPage>
     with WidgetsBindingObserver {
   final _loginController = TextEditingController();
   final _passwordController = TextEditingController();
-  double _keyboardHeight = 0;
+  final _scrollController = ScrollController();
+  bool _isKeyboardShowing = false;
+  final GlobalKey _googleButtonKey = GlobalKey();
 
   @override
   void initState() {
@@ -30,6 +31,7 @@ class _LoginPageController extends State<LoginPage>
     super.dispose();
     _loginController.dispose();
     _passwordController.dispose();
+    _scrollController.dispose();
     WidgetsBinding.instance.removeObserver(this);
   }
 
@@ -39,7 +41,14 @@ class _LoginPageController extends State<LoginPage>
     //Detect the bottomInset when the keyboard shown
     final bottomInset = View.of(context).viewInsets.bottom;
     setState(() {
-      _keyboardHeight = bottomInset;
+      if (bottomInset > 0) {
+        _isKeyboardShowing = true;
+      } else {
+        _isKeyboardShowing = false;
+      }
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Scrollable.ensureVisible(_googleButtonKey.currentContext!);
     });
   }
 
@@ -71,7 +80,7 @@ class _LoginPageView extends WidgetView<LoginPage, _LoginPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -90,36 +99,34 @@ class _LoginPageView extends WidgetView<LoginPage, _LoginPageController> {
         child: Padding(
           padding: AppSizes.s16.horizontalPadding,
           child: SingleChildScrollView(
-            child: AnimatedPadding(
-              duration: AppDuration.to100Milis(),
-              padding: state._keyboardHeight.bottomPadding,
-              child: Column(
-                children: <Widget>[
-                  AppSizes.s32.verticalGap,
-                  FractionallySizedBox(
-                    widthFactor: AppPercents.p50,
-                    child: AppAssets.pngSoundxLogo.image(),
-                  ),
-                  AppSizes.s10.verticalGap,
-                  Text(
-                    context.tr.appName.toUpperCase(),
-                    style: AppTextStyle.textSize20(fontWeight: FontWeight.bold),
-                  ),
-                  AppSizes.s32.verticalGap,
-                  _buildTextFields(
-                    emailHint: context.tr.loginEmailHintText,
-                    passwordHint: context.tr.loginPasswordHintText,
-                    hintLink: context.tr.forgotPassword,
-                  ),
-                  AppSizes.s10.verticalGap,
-                  _buildButtons(
-                    loginLabel: context.tr.pageLoginButtonTitle,
-                    signUpLabel: context.tr.pageRegisterButtonTitle,
-                    loginWithGoogleLabel: context.tr.loginWithGoogle,
-                    orLabel: context.tr.or,
-                  ),
-                ],
-              ),
+            controller: state._scrollController,
+            child: Column(
+              children: <Widget>[
+                AppSizes.s32.verticalGap,
+                FractionallySizedBox(
+                  widthFactor: AppPercents.p50,
+                  child: AppAssets.pngSoundxLogo.image(),
+                ),
+                AppSizes.s10.verticalGap,
+                Text(
+                  context.tr.appName.toUpperCase(),
+                  style: AppTextStyle.textSize20(fontWeight: FontWeight.bold),
+                ),
+                AppSizes.s32.verticalGap,
+                _buildTextFields(
+                  emailHint: context.tr.loginEmailHintText,
+                  passwordHint: context.tr.loginPasswordHintText,
+                  hintLink: context.tr.forgotPassword,
+                ),
+                AppSizes.s10.verticalGap,
+                _buildButtons(
+                  loginLabel: context.tr.pageLoginButtonTitle,
+                  signUpLabel: context.tr.pageRegisterButtonTitle,
+                  loginWithGoogleLabel: context.tr.loginWithGoogle,
+                  orLabel: context.tr.or,
+                ),
+                if (state._isKeyboardShowing) AppSizes.s10.verticalGap,
+              ],
             ),
           ),
         ),
@@ -138,12 +145,14 @@ class _LoginPageView extends WidgetView<LoginPage, _LoginPageController> {
           controller: state._loginController,
           hintText: emailHint,
           filled: true,
+          keyboardType: TextInputType.emailAddress,
         ),
         AppSizes.s10.verticalGap,
         AppTextField(
           controller: state._passwordController,
           hintText: passwordHint,
           filled: true,
+          obscureText: true,
         ),
         Align(
           alignment: Alignment.bottomRight,
@@ -177,6 +186,7 @@ class _LoginPageView extends WidgetView<LoginPage, _LoginPageController> {
           child: Text(orLabel, style: AppTextStyle.textSize16()),
         ),
         AppButton(
+          key: state._googleButtonKey,
           label: loginWithGoogleLabel,
           leadingIcon: AppAssets.iconsGoogleIcon.svg(),
           backgroundColor: AppColors.secondaryColor,
