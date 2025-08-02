@@ -22,6 +22,7 @@ class _LoginPageController extends ConsumerState<LoginPage>
   final _scrollController = ScrollController();
   bool _isKeyboardShowing = false;
   final GlobalKey _googleButtonKey = GlobalKey();
+  final GlobalKey _emailFieldKey = GlobalKey();
 
   @override
   void initState() {
@@ -51,7 +52,7 @@ class _LoginPageController extends ConsumerState<LoginPage>
       }
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Scrollable.ensureVisible(_googleButtonKey.currentContext!);
+      Scrollable.ensureVisible(_emailFieldKey.currentContext!);
     });
   }
 
@@ -112,7 +113,6 @@ class _LoginPageView extends WidgetView<LoginPage, _LoginPageController> {
                     alignment: Alignment.centerLeft,
                     child: LanguageButton(
                       onSelect: (locale) {
-                        print('Select from Login: ${locale.languageCode}');
                         ref?.read(languageProvider.notifier).state = locale;
                       },
                     ),
@@ -158,6 +158,7 @@ class _LoginPageView extends WidgetView<LoginPage, _LoginPageController> {
     return Column(
       children: <Widget>[
         AppTextField(
+          key: state._emailFieldKey,
           controller: state._loginController,
           hintText: emailHint,
           filled: true,
