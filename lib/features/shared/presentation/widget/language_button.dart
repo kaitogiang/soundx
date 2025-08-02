@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:soundx/core/constants/app_color.dart';
 import 'package:soundx/core/constants/app_text_style.dart';
 import 'package:soundx/core/extensions/color_extension.dart';
@@ -15,20 +18,43 @@ class LanguageButton extends StatefulWidget {
   State<LanguageButton> createState() => _LanguageButtonController();
 }
 
-class _LanguageButtonController extends State<LanguageButton> {
+class _LanguageButtonController extends State<LanguageButton>
+    with SingleTickerProviderStateMixin {
   OverlayEntry? _overlayEntry;
   final LayerLink _layerLink = LayerLink();
+  late AnimationController _animationController;
+  late Completer<void> _animationCompleter;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(vsync: this);
+    _animationController.addStatusListener((status) {
+      if (status == AnimationStatus.forward) {
+        _animationCompleter = Completer();
+      } else if (status == AnimationStatus.dismissed) {
+        _animationCompleter.complete();
+      }
+    });
+  }
+
   void showLanguageSelector() {
     final overlay = Overlay.of(context);
     _overlayEntry = OverlayEntry(
       builder: (context) {
-        return _LanguageButtonView(this).languageSelectorView(context);
+        return Animate(
+          effects: [FadeEffect()],
+          controller: _animationController,
+          child: _LanguageButtonView(this).languageSelectorView(context),
+        );
       },
     );
     overlay.insert(_overlayEntry!);
   }
 
-  void _removeOverlay() {
+  void _removeOverlay() async {
+    _animationController.reverse();
+    await _animationCompleter.future;
     _overlayEntry?.remove();
     _overlayEntry = null;
   }
