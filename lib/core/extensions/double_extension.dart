@@ -11,5 +11,9 @@ extension DoubleExtension on double {
 
   EdgeInsets get bottomPadding => EdgeInsets.only(bottom: this);
 
+  EdgeInsets get topPadding => EdgeInsets.only(top: this);
+
   EdgeInsets get allPadding => EdgeInsets.all(this);
+
+  BorderRadiusGeometry get allBorderRadius => BorderRadius.circular(this);
 }

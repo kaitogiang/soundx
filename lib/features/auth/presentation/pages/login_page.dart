@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:soundx/core/constants/app_color.dart';
 import 'package:soundx/core/constants/app_text_style.dart';
 import 'package:soundx/core/extensions/context_extension.dart';
 import 'package:soundx/features/shared/presentation/base/widget_view.dart';
+import 'package:soundx/features/shared/presentation/providers/language_providers.dart';
+import 'package:soundx/features/shared/presentation/widget/language_button.dart';
 import 'package:soundx/soundx.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageController();
+  ConsumerState<LoginPage> createState() => _LoginPageController();
 }
 
-class _LoginPageController extends State<LoginPage>
+class _LoginPageController extends ConsumerState<LoginPage>
     with WidgetsBindingObserver {
   final _loginController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -70,17 +73,18 @@ class _LoginPageController extends State<LoginPage>
 
   @override
   Widget build(BuildContext context) {
-    return _LoginPageView(this);
+    return _LoginPageView(this, ref: ref);
   }
 }
 
 class _LoginPageView extends WidgetView<LoginPage, _LoginPageController> {
-  const _LoginPageView(super.state, {super.key});
+  const _LoginPageView(super.state, {super.key, this.ref});
+  final WidgetRef? ref;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -102,7 +106,19 @@ class _LoginPageView extends WidgetView<LoginPage, _LoginPageController> {
             controller: state._scrollController,
             child: Column(
               children: <Widget>[
-                AppSizes.s32.verticalGap,
+                SafeArea(
+                  child: Container(
+                    padding: AppSizes.s8.topPadding,
+                    alignment: Alignment.centerLeft,
+                    child: LanguageButton(
+                      onSelect: (locale) {
+                        print('Select from Login: ${locale.languageCode}');
+                        ref?.read(languageProvider.notifier).state = locale;
+                      },
+                    ),
+                  ),
+                ),
+                // AppSizes.s32.verticalGap,
                 FractionallySizedBox(
                   widthFactor: AppPercents.p50,
                   child: AppAssets.pngSoundxLogo.image(),

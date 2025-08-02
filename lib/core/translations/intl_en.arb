@@ -18,5 +18,7 @@
   "loginPasswordHintText": "Password",
   "forgotPassword": "Forgot Password?",
   "loginWithGoogle": "Login With Google",
-  "or": "Or"
+  "or": "Or",
+  "englishLanguage": "English",
+  "vietnameseLanguage": "Vietnamese"
 }

@@ -143,6 +143,21 @@ class AppTranslate {
   String get or {
     return Intl.message('Or', name: 'or', desc: '', args: []);
   }
+
+  /// `English`
+  String get englishLanguage {
+    return Intl.message('English', name: 'englishLanguage', desc: '', args: []);
+  }
+
+  /// `Vietnamese`
+  String get vietnameseLanguage {
+    return Intl.message(
+      'Vietnamese',
+      name: 'vietnameseLanguage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppTranslate> {
