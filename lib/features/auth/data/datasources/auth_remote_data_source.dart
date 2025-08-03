@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
+import 'package:soundx/features/auth/data/models/user_model.dart';
 
 @LazySingleton()
 class AuthRemoteDataSource {
@@ -9,7 +10,7 @@ class AuthRemoteDataSource {
 
   AuthRemoteDataSource(this.firebaseAuth, this.googleSignIn);
 
-  Future<UserCredential?> signInWithGoogle() async {
+  Future<UserModel?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await googleSignIn.authenticate();
       if (googleUser == null) {
@@ -22,8 +23,15 @@ class AuthRemoteDataSource {
       final credential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
       );
+      final data = await firebaseAuth.signInWithCredential(credential);
+      final userModel = UserModel(
+        uid: data.user?.uid ?? '',
+        displayName: data.user?.displayName,
+        email: data.user?.email,
+        phoneNumber: data.user?.phoneNumber,
+      );
 
-      return await firebaseAuth.signInWithCredential(credential);
+      return userModel;
     } catch (e) {
       rethrow;
     }
