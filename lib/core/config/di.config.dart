@@ -16,6 +16,10 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:soundx/core/config/external_injectable.dart' as _i637;
 import 'package:soundx/features/auth/data/datasources/auth_remote_data_source.dart'
     as _i214;
+import 'package:soundx/features/auth/data/repsitories_impl/remote_auth_repositories_impl.dart'
+    as _i213;
+import 'package:soundx/features/auth/domain/repositories/remote_auth_repositories.dart'
+    as _i267;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -32,6 +36,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i59.FirebaseAuth>(),
         gh<_i116.GoogleSignIn>(),
       ),
+    );
+    gh.lazySingleton<_i267.RemoteAuthRepositories>(
+      () => _i213.RemoteAuthRepositoriesImpl(gh<_i214.AuthRemoteDataSource>()),
     );
     return this;
   }
