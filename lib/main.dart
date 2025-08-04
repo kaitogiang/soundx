@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,11 +17,11 @@ import 'package:soundx/features/shared/presentation/providers/language_providers
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await dotenv.load(fileName: '.env');
   await configureInjection();
   await Firebase.initializeApp();
   await GoogleSignIn.instance.initialize(
-    serverClientId:
-        '436319949454-rcrb9bdp31bqgbadvji6t541cjm3e1ao.apps.googleusercontent.com',
+    serverClientId: dotenv.env['GOOGLE_CLIENT_ID'],
   );
   runApp(ProviderScope(child: const MyApp()));
 }
