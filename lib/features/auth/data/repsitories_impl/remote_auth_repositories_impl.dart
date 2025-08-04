@@ -33,8 +33,7 @@ class RemoteAuthRepositoriesImpl implements RemoteAuthRepositories {
   }
 
   @override
-  Future<void> logOut() {
-    // TODO: implement logOut
-    throw UnimplementedError();
+  Future<void> logOut() async {
+    await authRemoteDataSource.signOut();
   }
 }

@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:soundx/core/config/di.dart';
 import 'package:soundx/core/translations/generated/l10n.dart';
 import 'package:soundx/features/auth/presentation/auth_page.dart';
+import 'package:soundx/features/auth/presentation/providers/auth_providers.dart';
+import 'package:soundx/features/music_library/presentation/music_library_page.dart';
 import 'package:soundx/features/shared/data/datasources/native_method.dart';
 import 'package:soundx/features/shared/presentation/base/auto_hide_keyboard.dart';
 import 'package:soundx/features/shared/presentation/providers/language_providers.dart';
@@ -15,6 +18,10 @@ void main() async {
   await Firebase.initializeApp();
   await configureInjection();
   await Firebase.initializeApp();
+  await GoogleSignIn.instance.initialize(
+    serverClientId:
+        '436319949454-rcrb9bdp31bqgbadvji6t541cjm3e1ao.apps.googleusercontent.com',
+  );
   runApp(ProviderScope(child: const MyApp()));
 }
 
@@ -66,11 +73,16 @@ class _MyAppState extends ConsumerState<MyApp> {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends ConsumerWidget {
   const MyHomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // final loginStatus = ref.watch(loginStatusProvider);
+    final currentUser = ref.watch(currentSignedInUserProvider);
+    if (currentUser != null) {
+      return MusicLibraryPage();
+    }
     return AuthPage();
   }
 }

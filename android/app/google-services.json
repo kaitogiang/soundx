@@ -12,7 +12,12 @@
           "package_name": "com.victorwibu.soundx"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "436319949454-rcrb9bdp31bqgbadvji6t541cjm3e1ao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD6ey-i7QIeVO5OBxarfFCk5bj5-hrD25I"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "436319949454-rcrb9bdp31bqgbadvji6t541cjm3e1ao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

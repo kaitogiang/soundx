@@ -12,7 +12,13 @@ class AuthRemoteDataSource {
 
   Future<UserModel?> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleUser = await googleSignIn.authenticate();
+      final GoogleSignInAccount? googleUser = await googleSignIn.authenticate(
+        scopeHint: <String>[
+          'email',
+          // Thêm scopes bạn cần, ví dụ truy cập contacts như bên dưới
+          'https://www.googleapis.com/auth/contacts.readonly',
+        ],
+      );
       if (googleUser == null) {
         return null;
       }
@@ -22,6 +28,7 @@ class AuthRemoteDataSource {
       //Create new credential
       final credential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
+        accessToken: googleAuth.idToken,
       );
       final data = await firebaseAuth.signInWithCredential(credential);
       final userModel = UserModel(

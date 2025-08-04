@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:soundx/core/constants/app_color.dart';
 import 'package:soundx/core/constants/app_text_style.dart';
 import 'package:soundx/core/extensions/context_extension.dart';
+import 'package:soundx/features/auth/presentation/providers/auth_providers.dart';
 import 'package:soundx/features/shared/presentation/base/widget_view.dart';
 import 'package:soundx/features/shared/presentation/providers/language_providers.dart';
 import 'package:soundx/features/shared/presentation/widget/language_button.dart';
@@ -70,6 +71,7 @@ class _LoginPageController extends ConsumerState<LoginPage>
 
   void _onPressLoginWithGoogle() {
     print('Press login with google');
+    ref.read(signInWithGoogleProvider);
   }
 
   @override
