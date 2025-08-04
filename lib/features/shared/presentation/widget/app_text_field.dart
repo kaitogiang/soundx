@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:soundx/core/constants/app_color.dart';
 import 'package:soundx/core/constants/app_text_style.dart';
+import 'package:soundx/features/shared/presentation/base/widget_view.dart';
 
 class AppTextField extends StatefulWidget {
   //Value and Controller properties
@@ -69,14 +70,26 @@ class AppTextField extends StatefulWidget {
   });
 
   @override
-  State<AppTextField> createState() => _AppTextFieldState();
+  State<AppTextField> createState() => _AppTextFieldController();
 }
 
-class _AppTextFieldState extends State<AppTextField> {
+//Controller
+class _AppTextFieldController extends State<AppTextField> {
   @override
   void initState() {
     super.initState();
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return _AppTextFieldView(this);
+  }
+}
+
+//View
+class _AppTextFieldView
+    extends WidgetView<AppTextField, _AppTextFieldController> {
+  const _AppTextFieldView(super.state, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +117,7 @@ class _AppTextFieldState extends State<AppTextField> {
         labelText: widget.labelText,
         prefixIcon: widget.prefixIcon,
         suffixIcon: widget.suffixIcon,
-        hintStyle: AppTexStyle.textSize16(),
+        hintStyle: AppTextStyle.textSize16(),
         suffix: widget.suffix,
         prefix: widget.prefix,
         contentPadding: widget.contentPadding ?? EdgeInsets.all(16),
@@ -114,6 +127,7 @@ class _AppTextFieldState extends State<AppTextField> {
       obscureText: widget.obscureText,
       enabled: widget.enabled,
       readOnly: widget.readOnly,
+      keyboardType: widget.keyboardType,
     );
   }
 }

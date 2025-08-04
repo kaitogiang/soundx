@@ -1,0 +1,27 @@
+{
+  "@@locale": "vi",
+  "appName": "Ứng dụng SoundX",
+  "hello": "Xin chào",
+  "welcome": "Chào mừng bạn đến với ứng dụng của tôi",
+  "@hello": {
+    "description": "an simple example about using this"
+  },
+  "pageLoginButtonTitle": "Đăng nhập",
+  "@pageLoginButtonTitle": {
+    "description": "Login title for the button in login page"
+  },
+  "pageRegisterButtonTitle": "Đăng ký",
+  "@pageRegisterButtonTitle": {
+    "description": "Sign up title for the button in register page"
+  },
+  "loginEmailHintText": "Email",
+  "loginPasswordHintText": "Mật khẩu",
+  "forgotPassword": "Quên mật khẩu?",
+  "loginWithGoogle": "Đăng nhập với Google",
+  "or": "Hoặc",
+  "englishLanguage": "Tiếng Anh",
+  "vietnameseLanguage": "Tiếng Việt"
+
+
+
+}

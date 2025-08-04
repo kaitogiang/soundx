@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:soundx/core/extensions/context_extension.dart';
 import 'package:soundx/soundx.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
@@ -21,7 +22,7 @@ Widget defaultAppButton(BuildContext context) {
     child: Column(
       children: [
         AppButton(
-          label: 'Login',
+          label: context.tr.pageLoginButtonTitle,
           onPressed: () {
             print('Press button');
           },
@@ -34,6 +35,14 @@ Widget defaultAppButton(BuildContext context) {
           },
           buttonType: AppButtonType.outline,
         ),
+        10.0.verticalGap,
+        AppButton(
+          onPressed: () {
+            print('Press button icon');
+          },
+          label: 'Button With Icon',
+          leadingIcon: AppAssets.iconsGoogleIcon.svg(),
+        ),
         AppButton(
           label: 'forgot password',
           buttonType: AppButtonType.link,
@@ -44,4 +53,9 @@ Widget defaultAppButton(BuildContext context) {
       ],
     ),
   );
+}
+
+@UseCase(name: 'Default Login Page', type: LoginPage)
+Widget defaultLoginPage(BuildContext context) {
+  return LoginPage();
 }

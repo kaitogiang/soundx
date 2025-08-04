@@ -1,0 +1,24 @@
+{
+  "@@locale" : "en",
+  "appName" : "SoundX app",
+  "hello": "Hello",
+  "welcome": "Welcome to my app",
+  "@hello": {
+    "description": "an simple example about using this"
+  },
+  "pageLoginButtonTitle": "Login",
+  "@pageLoginButtonTitle": {
+    "description": "Login title for the button in login page"
+  },
+  "pageRegisterButtonTitle": "Sign Up",
+  "@pageRegisterButtonTitle": {
+    "description": "Sign up title for the button in register page"
+  },
+  "loginEmailHintText": "Email",
+  "loginPasswordHintText": "Password",
+  "forgotPassword": "Forgot Password?",
+  "loginWithGoogle": "Login With Google",
+  "or": "Or",
+  "englishLanguage": "English",
+  "vietnameseLanguage": "Vietnamese"
+}
