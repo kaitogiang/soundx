@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Quên mật khẩu?"),
     "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
     "iAgreeTerms": m0,
+    "invalidEmail": MessageLookupByLibrary.simpleMessage("Email không hợp lệ."),
     "loginEmailHintText": MessageLookupByLibrary.simpleMessage("Email"),
     "loginPasswordHintText": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
     "loginWithGoogle": MessageLookupByLibrary.simpleMessage(

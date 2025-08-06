@@ -35,6 +35,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot Password?"),
     "hello": MessageLookupByLibrary.simpleMessage("Hello"),
     "iAgreeTerms": m0,
+    "invalidEmail": MessageLookupByLibrary.simpleMessage(
+      "Invalid email format.",
+    ),
     "loginEmailHintText": MessageLookupByLibrary.simpleMessage("Email"),
     "loginPasswordHintText": MessageLookupByLibrary.simpleMessage("Password"),
     "loginWithGoogle": MessageLookupByLibrary.simpleMessage(

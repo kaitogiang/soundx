@@ -253,6 +253,7 @@ class _LoginPageView extends WidgetView<SignUpPage, _LoginPageController> {
           hintText: emailHint,
           filled: true,
           keyboardType: TextInputType.emailAddress,
+          validateType: ValidateType.email,
         ),
         AppSizes.s10.verticalGap,
         AppTextField(

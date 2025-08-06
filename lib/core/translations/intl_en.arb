@@ -39,5 +39,6 @@
     }
   },
   "agreeString": "I agree to the ",
-  "andString": " and "
+  "andString": " and ",
+  "invalidEmail": "Invalid email format."
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:soundx/core/constants/app_color.dart';
 import 'package:soundx/core/constants/app_text_style.dart';
+import 'package:soundx/core/extensions/context_extension.dart';
 import 'package:soundx/features/shared/presentation/base/widget_view.dart';
+
+enum ValidateType { none, notEmpty, email, password, phone, numeric, required }
 
 class AppTextField extends StatefulWidget {
   //Value and Controller properties
@@ -36,6 +39,8 @@ class AppTextField extends StatefulWidget {
   final int? maxLength;
   final int? maxLines;
   final int? minLines;
+  //Validator
+  final ValidateType validateType;
 
   const AppTextField({
     super.key,
@@ -67,6 +72,7 @@ class AppTextField extends StatefulWidget {
     this.maxLength,
     this.maxLines,
     this.minLines,
+    this.validateType = ValidateType.none,
   });
 
   @override
@@ -75,9 +81,22 @@ class AppTextField extends StatefulWidget {
 
 //Controller
 class _AppTextFieldController extends State<AppTextField> {
+  final TextFieldValidator validator = TextFieldValidator();
+
   @override
   void initState() {
     super.initState();
+    _validatorField();
+  }
+
+  void _validatorField() {
+    widget.controller.addListener(() {
+      final value = widget.controller.text;
+      if (widget.validateType == ValidateType.email) {
+        final errorText = context.tr.invalidEmail;
+        validator.validateEmail(email: value, errorString: errorText);
+      }
+    });
   }
 
   @override
@@ -93,41 +112,69 @@ class _AppTextFieldView
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: widget.controller,
-      focusNode: widget.focusNode,
-      initialValue: widget.initialValue,
-      onTap: widget.onTap,
-      onChanged: widget.onChanged,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColors.lightGreenColor),
-        ),
-        focusColor: AppColors.greenColor,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColors.greenColor),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColors.mediumGreenColor),
-        ),
-        hintText: widget.hintText,
-        labelText: widget.labelText,
-        prefixIcon: widget.prefixIcon,
-        suffixIcon: widget.suffixIcon,
-        hintStyle: AppTextStyle.textSize16(),
-        suffix: widget.suffix,
-        prefix: widget.prefix,
-        contentPadding: widget.contentPadding ?? EdgeInsets.all(16),
-        filled: widget.filled,
-        fillColor: widget.fillColor ?? AppColors.whiteColor,
-      ),
-      obscureText: widget.obscureText,
-      enabled: widget.enabled,
-      readOnly: widget.readOnly,
-      keyboardType: widget.keyboardType,
+    return ListenableBuilder(
+      listenable: state.validator,
+      builder: (context, child) {
+        return TextFormField(
+          controller: widget.controller,
+          focusNode: widget.focusNode,
+          initialValue: widget.initialValue,
+          onTap: widget.onTap,
+          forceErrorText: state.validator.errorText,
+          onChanged: widget.onChanged,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: AppColors.lightGreenColor),
+            ),
+            focusColor: AppColors.greenColor,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: AppColors.greenColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: AppColors.mediumGreenColor),
+            ),
+            hintText: widget.hintText,
+            labelText: widget.labelText,
+            prefixIcon: widget.prefixIcon,
+            suffixIcon: widget.suffixIcon,
+            hintStyle: AppTextStyle.textSize16(),
+            suffix: widget.suffix,
+            prefix: widget.prefix,
+            contentPadding: widget.contentPadding ?? EdgeInsets.all(16),
+            filled: widget.filled,
+            fillColor: widget.fillColor ?? AppColors.whiteColor,
+          ),
+          obscureText: widget.obscureText,
+          enabled: widget.enabled,
+          readOnly: widget.readOnly,
+          keyboardType: widget.keyboardType,
+        );
+      },
     );
+  }
+}
+
+class TextFieldValidator extends ChangeNotifier {
+  String? _errorText;
+
+  String? get errorText => _errorText;
+
+  void resetErrorText() {
+    _errorText = null;
+    notifyListeners();
+  }
+
+  void validateEmail({required String email, required String errorString}) {
+    final emailRegExp = RegExp(r'^[\w\.-]+@[\w\.-]+\.\w{2,}$');
+    final hasMatch = emailRegExp.hasMatch(email);
+    if (!hasMatch) {
+      _errorText = errorString;
+      notifyListeners();
+      return;
+    }
+    resetErrorText();
   }
 }

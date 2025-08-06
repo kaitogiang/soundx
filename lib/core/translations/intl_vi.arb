@@ -39,5 +39,6 @@
     }
   },
   "agreeString": "Tôi đồng ý với ",
-  "andString": " và "
+  "andString": " và ",
+  "invalidEmail": "Email không hợp lệ."
 }

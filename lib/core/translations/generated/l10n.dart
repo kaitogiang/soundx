@@ -228,6 +228,16 @@ class AppTranslate {
   String get andString {
     return Intl.message(' and ', name: 'andString', desc: '', args: []);
   }
+
+  /// `Invalid email format.`
+  String get invalidEmail {
+    return Intl.message(
+      'Invalid email format.',
+      name: 'invalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppTranslate> {
