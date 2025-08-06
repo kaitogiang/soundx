@@ -34,6 +34,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Tạo tài khoản của bạn",
     ),
     "englishLanguage": MessageLookupByLibrary.simpleMessage("Tiếng Anh"),
+    "fieldIsNotEmpty": MessageLookupByLibrary.simpleMessage(
+      "Trường này không được rỗng.",
+    ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Quên mật khẩu?"),
     "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
     "iAgreeTerms": m0,

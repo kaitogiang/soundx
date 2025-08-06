@@ -4,7 +4,16 @@ import 'package:soundx/core/constants/app_text_style.dart';
 import 'package:soundx/core/extensions/context_extension.dart';
 import 'package:soundx/features/shared/presentation/base/widget_view.dart';
 
-enum ValidateType { none, notEmpty, email, password, phone, numeric, required }
+enum ValidateType {
+  none,
+  name,
+  notEmpty,
+  email,
+  password,
+  phone,
+  numeric,
+  required,
+}
 
 class AppTextField extends StatefulWidget {
   //Value and Controller properties
@@ -94,7 +103,12 @@ class _AppTextFieldController extends State<AppTextField> {
       final value = widget.controller.text;
       if (widget.validateType == ValidateType.email) {
         final errorText = context.tr.invalidEmail;
-        validator.validateEmail(email: value, errorString: errorText);
+        final errorEmptyText = context.tr.fieldIsNotEmpty;
+        validator.validateEmail(
+          email: value,
+          errorString: errorText,
+          errorEmptyString: errorEmptyText,
+        );
       }
     });
   }
@@ -140,7 +154,7 @@ class _AppTextFieldView
             labelText: widget.labelText,
             prefixIcon: widget.prefixIcon,
             suffixIcon: widget.suffixIcon,
-            hintStyle: AppTextStyle.textSize16(),
+            hintStyle: AppTextStyle.textSize16(textColor: Colors.grey),
             suffix: widget.suffix,
             prefix: widget.prefix,
             contentPadding: widget.contentPadding ?? EdgeInsets.all(16),
@@ -151,6 +165,7 @@ class _AppTextFieldView
           enabled: widget.enabled,
           readOnly: widget.readOnly,
           keyboardType: widget.keyboardType,
+          style: AppTextStyle.textSize16(),
         );
       },
     );
@@ -159,6 +174,7 @@ class _AppTextFieldView
 
 class TextFieldValidator extends ChangeNotifier {
   String? _errorText;
+  bool isFirstFocus = true;
 
   String? get errorText => _errorText;
 
@@ -167,10 +183,21 @@ class TextFieldValidator extends ChangeNotifier {
     notifyListeners();
   }
 
-  void validateEmail({required String email, required String errorString}) {
+  void validateEmail({
+    required String email,
+    required String errorString,
+    required String errorEmptyString,
+  }) {
     final emailRegExp = RegExp(r'^[\w\.-]+@[\w\.-]+\.\w{2,}$');
     final hasMatch = emailRegExp.hasMatch(email);
-    if (!hasMatch) {
+    if (email.isEmpty && !isFirstFocus) {
+      _errorText = errorEmptyString;
+      notifyListeners();
+      return;
+    } else {
+      isFirstFocus = false;
+    }
+    if (email.isNotEmpty && !hasMatch) {
       _errorText = errorString;
       notifyListeners();
       return;

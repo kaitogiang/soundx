@@ -40,5 +40,6 @@
   },
   "agreeString": "I agree to the ",
   "andString": " and ",
-  "invalidEmail": "Invalid email format."
+  "invalidEmail": "Invalid email format.",
+  "fieldIsNotEmpty": "This field cannot be empty."
 }

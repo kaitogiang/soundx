@@ -40,5 +40,6 @@
   },
   "agreeString": "Tôi đồng ý với ",
   "andString": " và ",
-  "invalidEmail": "Email không hợp lệ."
+  "invalidEmail": "Email không hợp lệ.",
+  "fieldIsNotEmpty": "Trường này không được rỗng."
 }

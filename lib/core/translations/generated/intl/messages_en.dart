@@ -32,6 +32,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Create your Account",
     ),
     "englishLanguage": MessageLookupByLibrary.simpleMessage("English"),
+    "fieldIsNotEmpty": MessageLookupByLibrary.simpleMessage(
+      "This field cannot be empty.",
+    ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot Password?"),
     "hello": MessageLookupByLibrary.simpleMessage("Hello"),
     "iAgreeTerms": m0,

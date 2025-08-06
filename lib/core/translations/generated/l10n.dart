@@ -238,6 +238,16 @@ class AppTranslate {
       args: [],
     );
   }
+
+  /// `This field cannot be empty.`
+  String get fieldIsNotEmpty {
+    return Intl.message(
+      'This field cannot be empty.',
+      name: 'fieldIsNotEmpty',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppTranslate> {
