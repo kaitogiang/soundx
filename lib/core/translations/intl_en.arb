@@ -20,5 +20,24 @@
   "loginWithGoogle": "Login With Google",
   "or": "Or",
   "englishLanguage": "English",
-  "vietnameseLanguage": "Vietnamese"
+  "vietnameseLanguage": "Vietnamese",
+  "createYourAccount": "Create your Account",
+  "signedUpName": "Name",
+  "confirmPassword": "Confirm Password",
+  "termsOfService": "Terms of Service",
+  "privacyPolicy": "Privacy Policy",
+  "iAgreeTerms": "I agree to the {terms} and {policy}",
+  "@iAgreeTerms": {
+    "description": "Terms and policy for the app",
+    "placeholders": {
+      "terms": {
+        "type": "String"
+      },
+      "policy": {
+        "type": "String"
+      }
+    }
+  },
+  "agreeString": "I agree to the ",
+  "andString": " and "
 }

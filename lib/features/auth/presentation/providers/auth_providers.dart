@@ -40,6 +40,7 @@ final signInWithGoogleProvider = FutureProvider<UserEntity?>((ref) async {
     print('Error: $e');
     ref.read(loginStatusProvider.notifier).state = false;
     ref.read(currentSignedInUserProvider.notifier).state = null;
+    ref.invalidateSelf();
   }
 });
 
@@ -55,3 +56,5 @@ final logoutProvider = FutureProvider.autoDispose<void>((ref) async {
     print('Error: $e');
   }
 });
+
+final termsAgreementProvider = StateProvider((_) => false);
