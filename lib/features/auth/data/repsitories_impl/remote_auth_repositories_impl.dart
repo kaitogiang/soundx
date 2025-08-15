@@ -36,4 +36,22 @@ class RemoteAuthRepositoriesImpl implements RemoteAuthRepositories {
   Future<void> logOut() async {
     await authRemoteDataSource.signOut();
   }
+
+  @override
+  Future<UserEntity?> signUp({
+    required String email,
+    required String displayName,
+    required String password,
+  }) async {
+    try {
+      final user = await authRemoteDataSource.signUp(
+        email: email,
+        password: password,
+        displayName: displayName,
+      );
+      return user?.toUserEntity();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

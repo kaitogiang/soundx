@@ -20,8 +20,30 @@
   "loginWithGoogle": "Đăng nhập với Google",
   "or": "Hoặc",
   "englishLanguage": "Tiếng Anh",
-  "vietnameseLanguage": "Tiếng Việt"
-
-
-
+  "vietnameseLanguage": "Tiếng Việt",
+  "createYourAccount": "Tạo tài khoản của bạn",
+  "signedUpName": "Họ và tên",
+  "confirmPassword": "Xác nhận mật khẩu",
+  "termsOfService": "Điều khoản dịch vụ",
+  "privacyPolicy": "Chính sách bảo mật",
+  "iAgreeTerms": "Tôi đồng ý với {terms} và {policy}",
+  "@iAgreeTerms": {
+    "description": "Điều khoản và chính sách của ứng dụng",
+    "placeholders": {
+      "terms": {
+        "type": "String"
+      },
+      "policy": {
+        "type": "String"
+      }
+    }
+  },
+  "agreeString": "Tôi đồng ý với ",
+  "andString": " và ",
+  "invalidEmail": "Email không hợp lệ.",
+  "fieldIsNotEmpty": "Trường này không được rỗng.",
+  "passwordAtLeast8": "Mật khẩu phải ít nhất 8 ký tự",
+  "passwordNotMatch": "Mật khẩu không khớp",
+  "somethingWrong": "Đã xảy ra lỗi. Vui lòng thử lại.",
+  "fillAllRequired": "Vui lòng điền tất cả các trường bắt buộc."
 }

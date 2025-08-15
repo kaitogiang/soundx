@@ -158,6 +158,136 @@ class AppTranslate {
       args: [],
     );
   }
+
+  /// `Create your Account`
+  String get createYourAccount {
+    return Intl.message(
+      'Create your Account',
+      name: 'createYourAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get signedUpName {
+    return Intl.message('Name', name: 'signedUpName', desc: '', args: []);
+  }
+
+  /// `Confirm Password`
+  String get confirmPassword {
+    return Intl.message(
+      'Confirm Password',
+      name: 'confirmPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terms of Service`
+  String get termsOfService {
+    return Intl.message(
+      'Terms of Service',
+      name: 'termsOfService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Privacy Policy`
+  String get privacyPolicy {
+    return Intl.message(
+      'Privacy Policy',
+      name: 'privacyPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I agree to the {terms} and {policy}`
+  String iAgreeTerms(String terms, String policy) {
+    return Intl.message(
+      'I agree to the $terms and $policy',
+      name: 'iAgreeTerms',
+      desc: 'Terms and policy for the app',
+      args: [terms, policy],
+    );
+  }
+
+  /// `I agree to the `
+  String get agreeString {
+    return Intl.message(
+      'I agree to the ',
+      name: 'agreeString',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` and `
+  String get andString {
+    return Intl.message(' and ', name: 'andString', desc: '', args: []);
+  }
+
+  /// `Invalid email format.`
+  String get invalidEmail {
+    return Intl.message(
+      'Invalid email format.',
+      name: 'invalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This field cannot be empty.`
+  String get fieldIsNotEmpty {
+    return Intl.message(
+      'This field cannot be empty.',
+      name: 'fieldIsNotEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password must be at least 8 characters long.`
+  String get passwordAtLeast8 {
+    return Intl.message(
+      'Password must be at least 8 characters long.',
+      name: 'passwordAtLeast8',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwords do not match`
+  String get passwordNotMatch {
+    return Intl.message(
+      'Passwords do not match',
+      name: 'passwordNotMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An error occurred. Please try again.`
+  String get somethingWrong {
+    return Intl.message(
+      'An error occurred. Please try again.',
+      name: 'somethingWrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please fill in all required fields.`
+  String get fillAllRequired {
+    return Intl.message(
+      'Please fill in all required fields.',
+      name: 'fillAllRequired',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppTranslate> {

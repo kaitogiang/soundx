@@ -1,6 +1,6 @@
 {
-  "@@locale" : "en",
-  "appName" : "SoundX app",
+  "@@locale": "en",
+  "appName": "SoundX app",
   "hello": "Hello",
   "welcome": "Welcome to my app",
   "@hello": {
@@ -20,5 +20,30 @@
   "loginWithGoogle": "Login With Google",
   "or": "Or",
   "englishLanguage": "English",
-  "vietnameseLanguage": "Vietnamese"
+  "vietnameseLanguage": "Vietnamese",
+  "createYourAccount": "Create your Account",
+  "signedUpName": "Name",
+  "confirmPassword": "Confirm Password",
+  "termsOfService": "Terms of Service",
+  "privacyPolicy": "Privacy Policy",
+  "iAgreeTerms": "I agree to the {terms} and {policy}",
+  "@iAgreeTerms": {
+    "description": "Terms and policy for the app",
+    "placeholders": {
+      "terms": {
+        "type": "String"
+      },
+      "policy": {
+        "type": "String"
+      }
+    }
+  },
+  "agreeString": "I agree to the ",
+  "andString": " and ",
+  "invalidEmail": "Invalid email format.",
+  "fieldIsNotEmpty": "This field cannot be empty.",
+  "passwordAtLeast8": "Password must be at least 8 characters long.",
+  "passwordNotMatch": "Passwords do not match",
+  "somethingWrong": "An error occurred. Please try again.",
+  "fillAllRequired": "Please fill in all required fields."
 }

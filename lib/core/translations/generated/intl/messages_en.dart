@@ -20,12 +20,30 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(terms, policy) => "I agree to the ${terms} and ${policy}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "agreeString": MessageLookupByLibrary.simpleMessage("I agree to the "),
+    "andString": MessageLookupByLibrary.simpleMessage(" and "),
     "appName": MessageLookupByLibrary.simpleMessage("SoundX app"),
+    "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
+    "createYourAccount": MessageLookupByLibrary.simpleMessage(
+      "Create your Account",
+    ),
     "englishLanguage": MessageLookupByLibrary.simpleMessage("English"),
+    "fieldIsNotEmpty": MessageLookupByLibrary.simpleMessage(
+      "This field cannot be empty.",
+    ),
+    "fillAllRequired": MessageLookupByLibrary.simpleMessage(
+      "Please fill in all required fields.",
+    ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot Password?"),
     "hello": MessageLookupByLibrary.simpleMessage("Hello"),
+    "iAgreeTerms": m0,
+    "invalidEmail": MessageLookupByLibrary.simpleMessage(
+      "Invalid email format.",
+    ),
     "loginEmailHintText": MessageLookupByLibrary.simpleMessage("Email"),
     "loginPasswordHintText": MessageLookupByLibrary.simpleMessage("Password"),
     "loginWithGoogle": MessageLookupByLibrary.simpleMessage(
@@ -34,6 +52,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "or": MessageLookupByLibrary.simpleMessage("Or"),
     "pageLoginButtonTitle": MessageLookupByLibrary.simpleMessage("Login"),
     "pageRegisterButtonTitle": MessageLookupByLibrary.simpleMessage("Sign Up"),
+    "passwordAtLeast8": MessageLookupByLibrary.simpleMessage(
+      "Password must be at least 8 characters long.",
+    ),
+    "passwordNotMatch": MessageLookupByLibrary.simpleMessage(
+      "Passwords do not match",
+    ),
+    "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+    "signedUpName": MessageLookupByLibrary.simpleMessage("Name"),
+    "somethingWrong": MessageLookupByLibrary.simpleMessage(
+      "An error occurred. Please try again.",
+    ),
+    "termsOfService": MessageLookupByLibrary.simpleMessage("Terms of Service"),
     "vietnameseLanguage": MessageLookupByLibrary.simpleMessage("Vietnamese"),
     "welcome": MessageLookupByLibrary.simpleMessage("Welcome to my app"),
   };
