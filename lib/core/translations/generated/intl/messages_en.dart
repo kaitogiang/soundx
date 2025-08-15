@@ -49,6 +49,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "or": MessageLookupByLibrary.simpleMessage("Or"),
     "pageLoginButtonTitle": MessageLookupByLibrary.simpleMessage("Login"),
     "pageRegisterButtonTitle": MessageLookupByLibrary.simpleMessage("Sign Up"),
+    "passwordAtLeast8": MessageLookupByLibrary.simpleMessage(
+      "Password must be at least 8 characters long.",
+    ),
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
     "signedUpName": MessageLookupByLibrary.simpleMessage("Name"),
     "termsOfService": MessageLookupByLibrary.simpleMessage("Terms of Service"),

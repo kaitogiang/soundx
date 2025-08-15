@@ -1,6 +1,6 @@
 {
-  "@@locale" : "en",
-  "appName" : "SoundX app",
+  "@@locale": "en",
+  "appName": "SoundX app",
   "hello": "Hello",
   "welcome": "Welcome to my app",
   "@hello": {
@@ -41,5 +41,6 @@
   "agreeString": "I agree to the ",
   "andString": " and ",
   "invalidEmail": "Invalid email format.",
-  "fieldIsNotEmpty": "This field cannot be empty."
+  "fieldIsNotEmpty": "This field cannot be empty.",
+  "passwordAtLeast8": "Password must be at least 8 characters long."
 }

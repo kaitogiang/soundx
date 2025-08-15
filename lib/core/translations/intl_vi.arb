@@ -41,5 +41,6 @@
   "agreeString": "Tôi đồng ý với ",
   "andString": " và ",
   "invalidEmail": "Email không hợp lệ.",
-  "fieldIsNotEmpty": "Trường này không được rỗng."
+  "fieldIsNotEmpty": "Trường này không được rỗng.",
+  "passwordAtLeast8": "Mật khẩu phải ít nhất 8 ký tự"
 }

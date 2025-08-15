@@ -12,10 +12,10 @@ class SignUpPage extends ConsumerStatefulWidget {
   const SignUpPage({super.key});
 
   @override
-  ConsumerState<SignUpPage> createState() => _LoginPageController();
+  ConsumerState<SignUpPage> createState() => _SignUpPageController();
 }
 
-class _LoginPageController extends ConsumerState<SignUpPage>
+class _SignUpPageController extends ConsumerState<SignUpPage>
     with WidgetsBindingObserver {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -23,8 +23,8 @@ class _LoginPageController extends ConsumerState<SignUpPage>
   final _confirmPasswordController = TextEditingController();
   final _scrollController = ScrollController();
   bool _isKeyboardShowing = false;
-  final GlobalKey _googleButtonKey = GlobalKey();
   final GlobalKey _emailFieldKey = GlobalKey();
+  final FocusNode _emailFocus = FocusNode();
 
   @override
   void initState() {
@@ -39,6 +39,9 @@ class _LoginPageController extends ConsumerState<SignUpPage>
     _passwordController.dispose();
     _scrollController.dispose();
     WidgetsBinding.instance.removeObserver(this);
+    _emailFocus.addListener(() {
+      Scrollable.ensureVisible(_emailFieldKey.currentContext!);
+    });
   }
 
   @override
@@ -52,9 +55,6 @@ class _LoginPageController extends ConsumerState<SignUpPage>
       } else {
         _isKeyboardShowing = false;
       }
-    });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Scrollable.ensureVisible(_emailFieldKey.currentContext!);
     });
   }
 
@@ -81,8 +81,9 @@ class _LoginPageController extends ConsumerState<SignUpPage>
   }
 }
 
-class _LoginPageView extends WidgetView<SignUpPage, _LoginPageController> {
+class _LoginPageView extends WidgetView<SignUpPage, _SignUpPageController> {
   const _LoginPageView(super.state, {super.key, this.ref});
+
   final WidgetRef? ref;
 
   @override
@@ -149,7 +150,7 @@ class _LoginPageView extends WidgetView<SignUpPage, _LoginPageController> {
                       loginWithGoogleLabel: context.tr.loginWithGoogle,
                       orLabel: context.tr.or,
                     ),
-                    if (state._isKeyboardShowing) AppSizes.s10.verticalGap,
+                    AppSizes.s20.verticalGap,
                   ],
                 ),
               ),
@@ -248,7 +249,6 @@ class _LoginPageView extends WidgetView<SignUpPage, _LoginPageController> {
     return Column(
       children: <Widget>[
         AppTextField(
-          key: state._emailFieldKey,
           controller: state._emailController,
           hintText: emailHint,
           filled: true,
@@ -261,6 +261,7 @@ class _LoginPageView extends WidgetView<SignUpPage, _LoginPageController> {
           hintText: nameHint,
           filled: true,
           obscureText: true,
+          validateType: ValidateType.notEmpty,
         ),
         AppSizes.s10.verticalGap,
         AppTextField(

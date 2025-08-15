@@ -22,6 +22,7 @@ class AppTextField extends StatefulWidget {
   final String? initialValue;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onTap;
+
   //UI-related properties
   final String? labelText;
   final String? hintText;
@@ -35,6 +36,7 @@ class AppTextField extends StatefulWidget {
   final EdgeInsetsGeometry? contentPadding;
   final bool? filled;
   final Color? fillColor;
+
   //Behavior-related properties
   final bool obscureText;
   final bool enabled;
@@ -42,12 +44,14 @@ class AppTextField extends StatefulWidget {
   final bool autofocus;
   final bool? enableSuggestions;
   final bool? autocorrect;
+
   //Keyboard
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final int? maxLength;
   final int? maxLines;
   final int? minLines;
+
   //Validator
   final ValidateType validateType;
 
@@ -101,15 +105,41 @@ class _AppTextFieldController extends State<AppTextField> {
   void _validatorField() {
     widget.controller.addListener(() {
       final value = widget.controller.text;
-      if (widget.validateType == ValidateType.email) {
-        final errorText = context.tr.invalidEmail;
-        final errorEmptyText = context.tr.fieldIsNotEmpty;
-        validator.validateEmail(
-          email: value,
-          errorString: errorText,
-          errorEmptyString: errorEmptyText,
-        );
+      switch (widget.validateType) {
+        case ValidateType.email:
+          {
+            final errorText = context.tr.invalidEmail;
+            final errorEmptyText = context.tr.fieldIsNotEmpty;
+            validator.validateEmail(
+              email: value,
+              errorString: errorText,
+              errorEmptyString: errorEmptyText,
+            );
+          }
+          break;
+        case ValidateType.notEmpty:
+          {
+            final errorText = context.tr.fieldIsNotEmpty;
+            validator.validateNotEmpty(value: value, errorString: errorText);
+          }
+          break;
+        case ValidateType.password:
+          {
+            final errorEmptyText = context.tr.fieldIsNotEmpty;
+            final errorPassword = context.tr.passwordAtLeast8;
+            validator.validatePassword(
+              password: value,
+              notEmptyString: errorEmptyText,
+              errorString: errorPassword,
+            );
+          }
+          break;
+        default:
+          break;
       }
+      // if (widget.validateType == ValidateType.email) {
+      //
+      // }
     });
   }
 
@@ -136,6 +166,7 @@ class _AppTextFieldView
           onTap: widget.onTap,
           forceErrorText: state.validator.errorText,
           onChanged: widget.onChanged,
+          textInputAction: widget.textInputAction ?? TextInputAction.next,
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -166,6 +197,9 @@ class _AppTextFieldView
           readOnly: widget.readOnly,
           keyboardType: widget.keyboardType,
           style: AppTextStyle.textSize16(),
+          onFieldSubmitted: (value) {
+            print('Field submit');
+          },
         );
       },
     );
@@ -202,6 +236,35 @@ class TextFieldValidator extends ChangeNotifier {
       notifyListeners();
       return;
     }
+    resetErrorText();
+  }
+
+  void validateNotEmpty({required String value, required String errorString}) {
+    if (value.isEmpty && !isFirstFocus) {
+      _errorText = errorString;
+      notifyListeners();
+      return;
+    }
+    isFirstFocus = false;
+    resetErrorText();
+  }
+
+  void validatePassword({
+    required String password,
+    required String notEmptyString,
+    required String errorString,
+  }) {
+    if (password.isEmpty && !isFirstFocus) {
+      _errorText = notEmptyString;
+      notifyListeners();
+      return;
+    }
+    if (password.length < 8 && !isFirstFocus) {
+      _errorText = errorString;
+      notifyListeners();
+      return;
+    }
+    isFirstFocus = false;
     resetErrorText();
   }
 }

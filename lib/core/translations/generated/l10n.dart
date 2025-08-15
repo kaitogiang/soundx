@@ -248,6 +248,16 @@ class AppTranslate {
       args: [],
     );
   }
+
+  /// `Password must be at least 8 characters long.`
+  String get passwordAtLeast8 {
+    return Intl.message(
+      'Password must be at least 8 characters long.',
+      name: 'passwordAtLeast8',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppTranslate> {

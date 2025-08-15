@@ -49,6 +49,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "or": MessageLookupByLibrary.simpleMessage("Hoặc"),
     "pageLoginButtonTitle": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
     "pageRegisterButtonTitle": MessageLookupByLibrary.simpleMessage("Đăng ký"),
+    "passwordAtLeast8": MessageLookupByLibrary.simpleMessage(
+      "Mật khẩu phải ít nhất 8 ký tự",
+    ),
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("Chính sách bảo mật"),
     "signedUpName": MessageLookupByLibrary.simpleMessage("Họ và tên"),
     "termsOfService": MessageLookupByLibrary.simpleMessage(
