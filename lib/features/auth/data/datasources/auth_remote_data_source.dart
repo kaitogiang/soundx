@@ -48,4 +48,26 @@ class AuthRemoteDataSource {
     await googleSignIn.signOut();
     await firebaseAuth.signOut();
   }
+
+  Future<User?> signUp({
+    required String email,
+    required String password,
+    required String displayName,
+    String? phoneNumber,
+  }) async {
+    try {
+      final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      final currentUser = userCredential.user;
+      if (currentUser != null) {
+        await currentUser.updateDisplayName(displayName);
+        return currentUser;
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
 }
