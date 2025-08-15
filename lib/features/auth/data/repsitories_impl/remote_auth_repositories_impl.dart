@@ -38,8 +38,19 @@ class RemoteAuthRepositoriesImpl implements RemoteAuthRepositories {
   }
 
   @override
-  Future<void> signUp() async {
-    try {} catch (e) {
+  Future<UserEntity?> signUp({
+    required String email,
+    required String displayName,
+    required String password,
+  }) async {
+    try {
+      final user = await authRemoteDataSource.signUp(
+        email: email,
+        password: password,
+        displayName: displayName,
+      );
+      return user?.toUserEntity();
+    } catch (e) {
       rethrow;
     }
   }

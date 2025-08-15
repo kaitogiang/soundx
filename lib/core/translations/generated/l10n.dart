@@ -258,6 +258,36 @@ class AppTranslate {
       args: [],
     );
   }
+
+  /// `Passwords do not match`
+  String get passwordNotMatch {
+    return Intl.message(
+      'Passwords do not match',
+      name: 'passwordNotMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An error occurred. Please try again.`
+  String get somethingWrong {
+    return Intl.message(
+      'An error occurred. Please try again.',
+      name: 'somethingWrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please fill in all required fields.`
+  String get fillAllRequired {
+    return Intl.message(
+      'Please fill in all required fields.',
+      name: 'fillAllRequired',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppTranslate> {

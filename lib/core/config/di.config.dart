@@ -24,6 +24,8 @@ import 'package:soundx/features/auth/domain/usecases/sign_in_with_google_usecase
     as _i809;
 import 'package:soundx/features/auth/domain/usecases/sign_out_usecase.dart'
     as _i199;
+import 'package:soundx/features/auth/domain/usecases/sign_up_usecase.dart'
+    as _i824;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -46,6 +48,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i199.SignOutUseCase>(
       () => _i199.SignOutUseCase(gh<_i267.RemoteAuthRepositories>()),
+    );
+    gh.lazySingleton<_i824.SignUpUseCase>(
+      () => _i824.SignUpUseCase(gh<_i267.RemoteAuthRepositories>()),
     );
     gh.lazySingleton<_i809.SignInWithGoogleUseCase>(
       () => _i809.SignInWithGoogleUseCase(gh<_i267.RemoteAuthRepositories>()),

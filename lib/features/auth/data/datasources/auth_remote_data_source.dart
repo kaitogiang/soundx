@@ -49,7 +49,7 @@ class AuthRemoteDataSource {
     await firebaseAuth.signOut();
   }
 
-  Future<User?> signUp({
+  Future<UserModel?> signUp({
     required String email,
     required String password,
     required String displayName,
@@ -63,7 +63,14 @@ class AuthRemoteDataSource {
       final currentUser = userCredential.user;
       if (currentUser != null) {
         await currentUser.updateDisplayName(displayName);
-        return currentUser;
+        await currentUser.reload();
+        final refreshedUser = firebaseAuth.currentUser;
+        return UserModel(
+          uid: refreshedUser!.uid,
+          displayName: refreshedUser.displayName,
+          email: refreshedUser.email,
+          phoneNumber: refreshedUser.phoneNumber,
+        );
       }
       return null;
     } catch (e) {

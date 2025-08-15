@@ -9,5 +9,9 @@ abstract class RemoteAuthRepositories {
 
   Future<void> forgotPassword();
 
-  Future<void> signUp();
+  Future<UserEntity?> signUp({
+    required String email,
+    required String displayName,
+    required String password,
+  });
 }

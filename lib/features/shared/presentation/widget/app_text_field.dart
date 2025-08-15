@@ -13,6 +13,9 @@ enum ValidateType {
   phone,
   numeric,
   required,
+
+  ///Need to provide the [confirmPasswordController]
+  confirmPassword,
 }
 
 class AppTextField extends StatefulWidget {
@@ -21,6 +24,7 @@ class AppTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final String? initialValue;
   final ValueChanged<String>? onChanged;
+  final ValueChanged<bool>? onValid;
   final VoidCallback? onTap;
 
   //UI-related properties
@@ -54,6 +58,7 @@ class AppTextField extends StatefulWidget {
 
   //Validator
   final ValidateType validateType;
+  final TextEditingController? confirmPasswordController;
 
   const AppTextField({
     super.key,
@@ -61,6 +66,7 @@ class AppTextField extends StatefulWidget {
     this.focusNode,
     this.initialValue,
     this.onChanged,
+    this.onValid,
     this.onTap,
     this.labelText,
     this.hintText,
@@ -86,6 +92,7 @@ class AppTextField extends StatefulWidget {
     this.maxLines,
     this.minLines,
     this.validateType = ValidateType.none,
+    this.confirmPasswordController,
   });
 
   @override
@@ -110,28 +117,47 @@ class _AppTextFieldController extends State<AppTextField> {
           {
             final errorText = context.tr.invalidEmail;
             final errorEmptyText = context.tr.fieldIsNotEmpty;
-            validator.validateEmail(
+            final isValid = validator.validateEmail(
               email: value,
               errorString: errorText,
               errorEmptyString: errorEmptyText,
             );
+            widget.onValid?.call(isValid);
           }
           break;
         case ValidateType.notEmpty:
           {
             final errorText = context.tr.fieldIsNotEmpty;
-            validator.validateNotEmpty(value: value, errorString: errorText);
+            final isValid = validator.validateNotEmpty(
+              value: value,
+              errorString: errorText,
+            );
+            widget.onValid?.call(isValid);
           }
           break;
         case ValidateType.password:
           {
             final errorEmptyText = context.tr.fieldIsNotEmpty;
             final errorPassword = context.tr.passwordAtLeast8;
-            validator.validatePassword(
+            final isValid = validator.validatePassword(
               password: value,
               notEmptyString: errorEmptyText,
               errorString: errorPassword,
             );
+            widget.onValid?.call(isValid);
+          }
+          break;
+        case ValidateType.confirmPassword:
+          {
+            final errorEmptyText = context.tr.fieldIsNotEmpty;
+            final notMatchError = context.tr.passwordNotMatch;
+            final isValid = validator.validateConfirmPassword(
+              value: value,
+              notEmptyString: errorEmptyText,
+              errorString: notMatchError,
+              confirmController: widget.confirmPasswordController,
+            );
+            widget.onValid?.call(isValid);
           }
           break;
         default:
@@ -217,7 +243,7 @@ class TextFieldValidator extends ChangeNotifier {
     notifyListeners();
   }
 
-  void validateEmail({
+  bool validateEmail({
     required String email,
     required String errorString,
     required String errorEmptyString,
@@ -227,29 +253,31 @@ class TextFieldValidator extends ChangeNotifier {
     if (email.isEmpty && !isFirstFocus) {
       _errorText = errorEmptyString;
       notifyListeners();
-      return;
+      return false;
     } else {
       isFirstFocus = false;
     }
     if (email.isNotEmpty && !hasMatch) {
       _errorText = errorString;
       notifyListeners();
-      return;
+      return false;
     }
     resetErrorText();
+    return true;
   }
 
-  void validateNotEmpty({required String value, required String errorString}) {
+  bool validateNotEmpty({required String value, required String errorString}) {
     if (value.isEmpty && !isFirstFocus) {
       _errorText = errorString;
       notifyListeners();
-      return;
+      return false;
     }
     isFirstFocus = false;
     resetErrorText();
+    return true;
   }
 
-  void validatePassword({
+  bool validatePassword({
     required String password,
     required String notEmptyString,
     required String errorString,
@@ -257,14 +285,39 @@ class TextFieldValidator extends ChangeNotifier {
     if (password.isEmpty && !isFirstFocus) {
       _errorText = notEmptyString;
       notifyListeners();
-      return;
+      return false;
     }
     if (password.length < 8 && !isFirstFocus) {
       _errorText = errorString;
       notifyListeners();
-      return;
+      return false;
     }
     isFirstFocus = false;
     resetErrorText();
+    return true;
+  }
+
+  bool validateConfirmPassword({
+    required String value,
+    required String notEmptyString,
+    required String errorString,
+    required TextEditingController? confirmController,
+  }) {
+    if (value.isEmpty && !isFirstFocus) {
+      _errorText = notEmptyString;
+      notifyListeners();
+      return false;
+    }
+
+    if (value.compareTo(confirmController?.text.trim() ?? '') != 0 &&
+        !isFirstFocus) {
+      _errorText = errorString;
+      notifyListeners();
+      return false;
+    }
+
+    isFirstFocus = false;
+    resetErrorText();
+    return true;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:overlay_notification/overlay_notification.dart';
 import 'package:soundx/core/constants/app_color.dart';
 import 'package:soundx/core/constants/app_text_style.dart';
 import 'package:soundx/core/extensions/context_extension.dart';
@@ -25,6 +26,11 @@ class _SignUpPageController extends ConsumerState<SignUpPage>
   bool _isKeyboardShowing = false;
   final GlobalKey _emailFieldKey = GlobalKey();
   final FocusNode _emailFocus = FocusNode();
+
+  bool _isValidEmail = false;
+  bool _isValidName = false;
+  bool _isValidPassword = false;
+  bool _isValidConfirmPassword = false;
 
   @override
   void initState() {
@@ -68,6 +74,29 @@ class _SignUpPageController extends ConsumerState<SignUpPage>
 
   void _onPressSignUp() {
     print('Press sign up button');
+    if (_isValidRequest()) {
+      final email = _emailController.text.trim();
+      final password = _passwordController.text.trim();
+      final displayName = _nameController.text.trim();
+      print("Valid");
+      ref.read(
+        signUpProvider((
+          email: email,
+          password: password,
+          displayName: displayName,
+          context: context,
+        )),
+      );
+    } else {
+      toast(context.tr.fillAllRequired);
+    }
+  }
+
+  bool _isValidRequest() {
+    return _isValidEmail &&
+        _isValidName &&
+        _isValidPassword &&
+        _isValidConfirmPassword;
   }
 
   void _onPressLoginWithGoogle() {
@@ -133,17 +162,7 @@ class _LoginPageView extends WidgetView<SignUpPage, _SignUpPageController> {
                       passwordHint: context.tr.loginPasswordHintText,
                       confirmHint: context.tr.confirmPassword,
                     ),
-                    AppSizes.s10.verticalGap,
-                    _buildTermsAndPolicy(
-                      context: context,
-                      onPressPolicy: () {
-                        print('Press Policy');
-                      },
-                      onPressTerm: () {
-                        print('Press Term');
-                      },
-                    ),
-                    AppSizes.s12.verticalGap,
+                    AppSizes.s32.verticalGap,
                     _buildButtons(
                       loginLabel: context.tr.pageLoginButtonTitle,
                       signUpLabel: context.tr.pageRegisterButtonTitle,
@@ -254,14 +273,19 @@ class _LoginPageView extends WidgetView<SignUpPage, _SignUpPageController> {
           filled: true,
           keyboardType: TextInputType.emailAddress,
           validateType: ValidateType.email,
+          onValid: (value) {
+            state._isValidEmail = value;
+          },
         ),
         AppSizes.s10.verticalGap,
         AppTextField(
           controller: state._nameController,
           hintText: nameHint,
           filled: true,
-          obscureText: true,
           validateType: ValidateType.notEmpty,
+          onValid: (value) {
+            state._isValidName = value;
+          },
         ),
         AppSizes.s10.verticalGap,
         AppTextField(
@@ -269,6 +293,10 @@ class _LoginPageView extends WidgetView<SignUpPage, _SignUpPageController> {
           hintText: passwordHint,
           filled: true,
           obscureText: true,
+          validateType: ValidateType.password,
+          onValid: (value) {
+            state._isValidPassword = value;
+          },
         ),
         AppSizes.s10.verticalGap,
         AppTextField(
@@ -276,6 +304,11 @@ class _LoginPageView extends WidgetView<SignUpPage, _SignUpPageController> {
           hintText: confirmHint,
           filled: true,
           obscureText: true,
+          validateType: ValidateType.confirmPassword,
+          confirmPasswordController: state._passwordController,
+          onValid: (value) {
+            state._isValidConfirmPassword = value;
+          },
         ),
       ],
     );

@@ -35,6 +35,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "fieldIsNotEmpty": MessageLookupByLibrary.simpleMessage(
       "This field cannot be empty.",
     ),
+    "fillAllRequired": MessageLookupByLibrary.simpleMessage(
+      "Please fill in all required fields.",
+    ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot Password?"),
     "hello": MessageLookupByLibrary.simpleMessage("Hello"),
     "iAgreeTerms": m0,
@@ -52,8 +55,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordAtLeast8": MessageLookupByLibrary.simpleMessage(
       "Password must be at least 8 characters long.",
     ),
+    "passwordNotMatch": MessageLookupByLibrary.simpleMessage(
+      "Passwords do not match",
+    ),
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
     "signedUpName": MessageLookupByLibrary.simpleMessage("Name"),
+    "somethingWrong": MessageLookupByLibrary.simpleMessage(
+      "An error occurred. Please try again.",
+    ),
     "termsOfService": MessageLookupByLibrary.simpleMessage("Terms of Service"),
     "vietnameseLanguage": MessageLookupByLibrary.simpleMessage("Vietnamese"),
     "welcome": MessageLookupByLibrary.simpleMessage("Welcome to my app"),

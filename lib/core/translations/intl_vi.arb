@@ -42,5 +42,8 @@
   "andString": " và ",
   "invalidEmail": "Email không hợp lệ.",
   "fieldIsNotEmpty": "Trường này không được rỗng.",
-  "passwordAtLeast8": "Mật khẩu phải ít nhất 8 ký tự"
+  "passwordAtLeast8": "Mật khẩu phải ít nhất 8 ký tự",
+  "passwordNotMatch": "Mật khẩu không khớp",
+  "somethingWrong": "Đã xảy ra lỗi. Vui lòng thử lại.",
+  "fillAllRequired": "Vui lòng điền tất cả các trường bắt buộc."
 }

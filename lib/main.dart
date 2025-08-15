@@ -5,7 +5,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:overlay_notification/overlay_notification.dart';
 import 'package:soundx/core/config/di.dart';
+import 'package:soundx/core/constants/app_color.dart';
 import 'package:soundx/core/translations/generated/l10n.dart';
 import 'package:soundx/features/auth/presentation/auth_page.dart';
 import 'package:soundx/features/auth/presentation/providers/auth_providers.dart';
@@ -40,35 +42,41 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     final langProvider = ref.watch(languageProvider);
-    return MaterialApp(
-      title: 'SoundX',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        textTheme: GoogleFonts.ralewayTextTheme(),
+    return OverlayNotification.global(
+      toastTheme: ToastThemeData(
+        background: AppColors.lightGrey,
+        textColor: AppColors.blackColor,
       ),
-      localizationsDelegates: [
-        AppTranslate.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: AppTranslate.delegate.supportedLocales,
-      locale: langProvider,
-      home: PopScope(
-        canPop: false,
-        onPopInvokedWithResult: (didPop, result) async {
-          final now = DateTime.now();
-          if (duration != null &&
-              now.difference(duration!).abs().inMilliseconds <= 500) {
-            // SystemNavigator.pop();
-            await NativeMethod.hideAppToBackground();
-            duration = null;
-            return;
-          }
-          duration = now;
-          print('Wait to the next tap');
-        },
-        child: AutoHideKeyboard(child: const MyHomePage()),
+      child: MaterialApp(
+        title: 'SoundX',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          textTheme: GoogleFonts.ralewayTextTheme(),
+        ),
+        localizationsDelegates: [
+          AppTranslate.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: AppTranslate.delegate.supportedLocales,
+        locale: langProvider,
+        home: PopScope(
+          canPop: false,
+          onPopInvokedWithResult: (didPop, result) async {
+            final now = DateTime.now();
+            if (duration != null &&
+                now.difference(duration!).abs().inMilliseconds <= 500) {
+              // SystemNavigator.pop();
+              await NativeMethod.hideAppToBackground();
+              duration = null;
+              return;
+            }
+            duration = now;
+            print('Wait to the next tap');
+          },
+          child: AutoHideKeyboard(child: const MyHomePage()),
+        ),
       ),
     );
   }

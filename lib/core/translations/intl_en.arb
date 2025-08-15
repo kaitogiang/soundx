@@ -42,5 +42,8 @@
   "andString": " and ",
   "invalidEmail": "Invalid email format.",
   "fieldIsNotEmpty": "This field cannot be empty.",
-  "passwordAtLeast8": "Password must be at least 8 characters long."
+  "passwordAtLeast8": "Password must be at least 8 characters long.",
+  "passwordNotMatch": "Passwords do not match",
+  "somethingWrong": "An error occurred. Please try again.",
+  "fillAllRequired": "Please fill in all required fields."
 }

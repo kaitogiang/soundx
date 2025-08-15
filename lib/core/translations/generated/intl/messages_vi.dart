@@ -37,6 +37,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "fieldIsNotEmpty": MessageLookupByLibrary.simpleMessage(
       "Trường này không được rỗng.",
     ),
+    "fillAllRequired": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng điền tất cả các trường bắt buộc.",
+    ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Quên mật khẩu?"),
     "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
     "iAgreeTerms": m0,
@@ -52,8 +55,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordAtLeast8": MessageLookupByLibrary.simpleMessage(
       "Mật khẩu phải ít nhất 8 ký tự",
     ),
+    "passwordNotMatch": MessageLookupByLibrary.simpleMessage(
+      "Mật khẩu không khớp",
+    ),
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("Chính sách bảo mật"),
     "signedUpName": MessageLookupByLibrary.simpleMessage("Họ và tên"),
+    "somethingWrong": MessageLookupByLibrary.simpleMessage(
+      "Đã xảy ra lỗi. Vui lòng thử lại.",
+    ),
     "termsOfService": MessageLookupByLibrary.simpleMessage(
       "Điều khoản dịch vụ",
     ),

@@ -17,6 +17,9 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class AppAssets {
   const AppAssets._();
 
+  /// File path: .env
+  static const String aEnv = '.env';
+
   /// File path: assets/icons/google_icon.svg
   static const SvgGenImage iconsGoogleIcon = SvgGenImage(
     'assets/icons/google_icon.svg',
@@ -39,6 +42,7 @@ class AppAssets {
 
   /// List of all assets
   static List<dynamic> get values => [
+    aEnv,
     iconsGoogleIcon,
     pngSoundxLogo,
     pngUkFlag,
