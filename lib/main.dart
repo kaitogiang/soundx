@@ -8,12 +8,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:overlay_notification/overlay_notification.dart';
 import 'package:soundx/core/config/di.dart';
 import 'package:soundx/core/constants/app_color.dart';
+import 'package:soundx/core/navgiation/navigation_config.dart';
 import 'package:soundx/core/translations/generated/l10n.dart';
-import 'package:soundx/features/auth/presentation/auth_page.dart';
-import 'package:soundx/features/auth/presentation/providers/auth_providers.dart';
-import 'package:soundx/features/music_library/presentation/music_library_page.dart';
-import 'package:soundx/features/shared/data/datasources/native_method.dart';
-import 'package:soundx/features/shared/presentation/base/auto_hide_keyboard.dart';
 import 'package:soundx/features/shared/presentation/providers/language_providers.dart';
 
 void main() async {
@@ -47,7 +43,7 @@ class _MyAppState extends ConsumerState<MyApp> {
         background: AppColors.lightGrey,
         textColor: AppColors.blackColor,
       ),
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: 'SoundX',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -61,37 +57,22 @@ class _MyAppState extends ConsumerState<MyApp> {
         ],
         supportedLocales: AppTranslate.delegate.supportedLocales,
         locale: langProvider,
-        home: PopScope(
-          canPop: false,
-          onPopInvokedWithResult: (didPop, result) async {
-            final now = DateTime.now();
-            if (duration != null &&
-                now.difference(duration!).abs().inMilliseconds <= 500) {
-              // SystemNavigator.pop();
-              await NativeMethod.hideAppToBackground();
-              duration = null;
-              return;
-            }
-            duration = now;
-            print('Wait to the next tap');
-          },
-          child: AutoHideKeyboard(child: const MyHomePage()),
-        ),
+        routerConfig: goRouterConfig,
       ),
     );
   }
 }
 
-class MyHomePage extends ConsumerWidget {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // final loginStatus = ref.watch(loginStatusProvider);
-    final currentUser = ref.watch(currentSignedInUserProvider);
-    if (currentUser != null) {
-      return MusicLibraryPage();
-    }
-    return AuthPage();
-  }
-}
+// class MyHomePage extends ConsumerWidget {
+//   const MyHomePage({super.key});
+//
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     // final loginStatus = ref.watch(loginStatusProvider);
+//     final currentUser = ref.watch(currentSignedInUserProvider);
+//     if (currentUser != null) {
+//       return MusicLibraryPage();
+//     }
+//     return AuthPage();
+//   }
+// }

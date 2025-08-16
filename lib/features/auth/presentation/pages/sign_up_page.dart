@@ -5,6 +5,7 @@ import 'package:overlay_notification/overlay_notification.dart';
 import 'package:soundx/core/constants/app_color.dart';
 import 'package:soundx/core/constants/app_text_style.dart';
 import 'package:soundx/core/extensions/context_extension.dart';
+import 'package:soundx/core/navgiation/navigation_config.dart';
 import 'package:soundx/features/auth/presentation/providers/auth_providers.dart';
 import 'package:soundx/features/shared/presentation/base/widget_view.dart';
 import 'package:soundx/soundx.dart';
@@ -179,7 +180,9 @@ class _LoginPageView extends WidgetView<SignUpPage, _SignUpPageController> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: AppSizes.s4),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      goRouterConfig.pop();
+                    },
                     icon: Icon(Icons.arrow_back_ios),
                   ),
                 ),

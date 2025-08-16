@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:overlay_notification/overlay_notification.dart';
 import 'package:soundx/core/config/di.dart';
 import 'package:soundx/core/extensions/context_extension.dart';
+import 'package:soundx/core/navgiation/navigation_config.dart';
 import 'package:soundx/features/auth/domain/entities/user_entity.dart';
 import 'package:soundx/features/auth/domain/usecases/sign_in_with_google_usecase.dart';
 import 'package:soundx/features/auth/domain/usecases/sign_out_usecase.dart';
@@ -12,13 +13,7 @@ import 'package:soundx/features/auth/domain/usecases/sign_up_usecase.dart';
 typedef IncomingCreatedUser =
     ({String email, String displayName, String password, BuildContext context});
 
-final loginStatusProvider = StateProvider<bool>((_) {
-  // final currentUser = getIt<FirebaseAuth>().currentUser;
-  // return currentUser != null;
-  return false;
-});
-
-final currentSignedInUserProvider = StateProvider<UserEntity?>((_) {
+final currentSignedInUserProvider = StateProvider<UserEntity?>((ref) {
   final currentUser = getIt<FirebaseAuth>().currentUser;
   final userEntity = UserEntity(
     uid: currentUser?.uid ?? '',
@@ -28,8 +23,10 @@ final currentSignedInUserProvider = StateProvider<UserEntity?>((_) {
   );
 
   if (currentUser != null) {
+    goRouterConfig.go('\\');
     return userEntity;
   }
+  goRouterConfig.go('\\login');
   return null;
 });
 
@@ -39,13 +36,11 @@ final signInWithGoogleProvider = FutureProvider<UserEntity?>((ref) async {
     final output = await signInInWithGoogleUseCase(SignInWithGoogleInput());
     if (output.userEntity != null) {
       //Success
-      ref.read(loginStatusProvider.notifier).state = true;
       ref.read(currentSignedInUserProvider.notifier).state = output.userEntity;
       return output.userEntity;
     }
   } catch (e) {
     print('Error: $e');
-    ref.read(loginStatusProvider.notifier).state = false;
     ref.read(currentSignedInUserProvider.notifier).state = null;
     ref.invalidateSelf();
   }
