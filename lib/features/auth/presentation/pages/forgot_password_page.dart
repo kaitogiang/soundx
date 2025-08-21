@@ -10,28 +10,22 @@ import 'package:soundx/features/auth/presentation/providers/auth_providers.dart'
 import 'package:soundx/features/shared/presentation/base/widget_view.dart';
 import 'package:soundx/soundx.dart';
 
-class SignUpPage extends ConsumerStatefulWidget {
-  const SignUpPage({super.key});
+class ForgotPasswordPage extends ConsumerStatefulWidget {
+  const ForgotPasswordPage({super.key});
 
   @override
-  ConsumerState<SignUpPage> createState() => _SignUpPageController();
+  ConsumerState<ForgotPasswordPage> createState() =>
+      _ForgotPasswordController();
 }
 
-class _SignUpPageController extends ConsumerState<SignUpPage>
+class _ForgotPasswordController extends ConsumerState<ForgotPasswordPage>
     with WidgetsBindingObserver {
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _nameController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
   final _scrollController = ScrollController();
-  bool _isKeyboardShowing = false;
   final GlobalKey _emailFieldKey = GlobalKey();
   final FocusNode _emailFocus = FocusNode();
 
   bool _isValidEmail = false;
-  bool _isValidName = false;
-  bool _isValidPassword = false;
-  bool _isValidConfirmPassword = false;
 
   @override
   void initState() {
@@ -43,7 +37,6 @@ class _SignUpPageController extends ConsumerState<SignUpPage>
   void dispose() {
     super.dispose();
     _emailController.dispose();
-    _passwordController.dispose();
     _scrollController.dispose();
     WidgetsBinding.instance.removeObserver(this);
     _emailFocus.addListener(() {
@@ -51,53 +44,16 @@ class _SignUpPageController extends ConsumerState<SignUpPage>
     });
   }
 
-  @override
-  void didChangeMetrics() {
-    super.didChangeMetrics();
-    //Detect the bottomInset when the keyboard shown
-    final bottomInset = View.of(context).viewInsets.bottom;
-    setState(() {
-      if (bottomInset > 0) {
-        _isKeyboardShowing = true;
-      } else {
-        _isKeyboardShowing = false;
-      }
-    });
-  }
-
-  void _onPressForgotPasswordLink() {
-    print('Press forgot password link');
-  }
-
-  void _onPressLogin() {
+  void _onContinue() {
+    if (!_isValidEmail) {
+      toast(context.tr.fillAllRequired);
+      return;
+    }
     print('Press login button');
   }
 
-  void _onPressSignUp() {
-    print('Press sign up button');
-    if (_isValidRequest()) {
-      final email = _emailController.text.trim();
-      final password = _passwordController.text.trim();
-      final displayName = _nameController.text.trim();
-      print("Valid");
-      ref.read(
-        signUpProvider((
-          email: email,
-          password: password,
-          displayName: displayName,
-          context: context,
-        )),
-      );
-    } else {
-      toast(context.tr.fillAllRequired);
-    }
-  }
-
-  bool _isValidRequest() {
-    return _isValidEmail &&
-        _isValidName &&
-        _isValidPassword &&
-        _isValidConfirmPassword;
+  void _onCancel() {
+    goRouterConfig.pop();
   }
 
   void _onPressLoginWithGoogle() {
@@ -111,7 +67,8 @@ class _SignUpPageController extends ConsumerState<SignUpPage>
   }
 }
 
-class _LoginPageView extends WidgetView<SignUpPage, _SignUpPageController> {
+class _LoginPageView
+    extends WidgetView<ForgotPasswordPage, _ForgotPasswordController> {
   const _LoginPageView(super.state, {super.key, this.ref});
 
   final WidgetRef? ref;
@@ -156,7 +113,7 @@ class _LoginPageView extends WidgetView<SignUpPage, _SignUpPageController> {
                       ),
                     ),
                     AppSizes.s32.verticalGap,
-                    _buildFormTitle(context.tr.createYourAccount),
+                    _buildFormTitle(context.tr.resetYourPassword),
                     _buildTextFields(
                       emailHint: context.tr.loginEmailHintText,
                       nameHint: context.tr.signedUpName,
@@ -165,26 +122,11 @@ class _LoginPageView extends WidgetView<SignUpPage, _SignUpPageController> {
                     ),
                     AppSizes.s32.verticalGap,
                     _buildButtons(
-                      loginLabel: context.tr.pageLoginButtonTitle,
-                      signUpLabel: context.tr.pageRegisterButtonTitle,
-                      loginWithGoogleLabel: context.tr.loginWithGoogle,
-                      orLabel: context.tr.or,
+                      cancelLabel: context.tr.cancelButton,
+                      continueLabel: context.tr.continueButton,
                     ),
                     AppSizes.s20.verticalGap,
                   ],
-                ),
-              ),
-            ),
-            Positioned(
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: AppSizes.s4),
-                  child: IconButton(
-                    onPressed: () {
-                      goRouterConfig.pop();
-                    },
-                    icon: Icon(Icons.arrow_back_ios),
-                  ),
                 ),
               ),
             ),
@@ -276,41 +218,9 @@ class _LoginPageView extends WidgetView<SignUpPage, _SignUpPageController> {
           filled: true,
           keyboardType: TextInputType.emailAddress,
           validateType: ValidateType.email,
+          textInputAction: TextInputAction.done,
           onValid: (value) {
             state._isValidEmail = value;
-          },
-        ),
-        AppSizes.s10.verticalGap,
-        AppTextField(
-          controller: state._nameController,
-          hintText: nameHint,
-          filled: true,
-          validateType: ValidateType.notEmpty,
-          onValid: (value) {
-            state._isValidName = value;
-          },
-        ),
-        AppSizes.s10.verticalGap,
-        AppTextField(
-          controller: state._passwordController,
-          hintText: passwordHint,
-          filled: true,
-          obscureText: true,
-          validateType: ValidateType.password,
-          onValid: (value) {
-            state._isValidPassword = value;
-          },
-        ),
-        AppSizes.s10.verticalGap,
-        AppTextField(
-          controller: state._confirmPasswordController,
-          hintText: confirmHint,
-          filled: true,
-          obscureText: true,
-          validateType: ValidateType.confirmPassword,
-          confirmPasswordController: state._passwordController,
-          onValid: (value) {
-            state._isValidConfirmPassword = value;
           },
         ),
       ],
@@ -318,14 +228,18 @@ class _LoginPageView extends WidgetView<SignUpPage, _SignUpPageController> {
   }
 
   Widget _buildButtons({
-    required String loginLabel,
-    required String signUpLabel,
-    required String loginWithGoogleLabel,
-    required String orLabel,
+    required String cancelLabel,
+    required String continueLabel,
   }) {
     return Column(
       children: <Widget>[
-        AppButton(label: signUpLabel, onPressed: state._onPressSignUp),
+        AppButton(label: continueLabel, onPressed: state._onContinue),
+        AppSizes.s10.verticalGap,
+        AppButton(
+          label: cancelLabel,
+          onPressed: state._onCancel,
+          buttonType: AppButtonType.outline,
+        ),
       ],
     );
   }

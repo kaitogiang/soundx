@@ -27,7 +27,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "agreeString": MessageLookupByLibrary.simpleMessage("I agree to the "),
     "andString": MessageLookupByLibrary.simpleMessage(" and "),
     "appName": MessageLookupByLibrary.simpleMessage("SoundX app"),
+    "cancelButton": MessageLookupByLibrary.simpleMessage("Cancel"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
+    "continueButton": MessageLookupByLibrary.simpleMessage("Continue"),
     "createYourAccount": MessageLookupByLibrary.simpleMessage(
       "Create your Account",
     ),
@@ -59,6 +61,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Passwords do not match",
     ),
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+    "resetYourPassword": MessageLookupByLibrary.simpleMessage(
+      "Reset your password",
+    ),
     "signedUpName": MessageLookupByLibrary.simpleMessage("Name"),
     "somethingWrong": MessageLookupByLibrary.simpleMessage(
       "An error occurred. Please try again.",

@@ -45,5 +45,8 @@
   "passwordAtLeast8": "Password must be at least 8 characters long.",
   "passwordNotMatch": "Passwords do not match",
   "somethingWrong": "An error occurred. Please try again.",
-  "fillAllRequired": "Please fill in all required fields."
+  "fillAllRequired": "Please fill in all required fields.",
+  "resetYourPassword": "Reset your password",
+  "cancelButton": "Cancel",
+  "continueButton": "Continue"
 }

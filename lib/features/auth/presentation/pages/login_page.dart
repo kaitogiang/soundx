@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:soundx/core/constants/app_color.dart';
 import 'package:soundx/core/constants/app_text_style.dart';
 import 'package:soundx/core/extensions/context_extension.dart';
+import 'package:soundx/core/navgiation/navigation_config.dart';
 import 'package:soundx/features/auth/presentation/providers/auth_providers.dart';
 import 'package:soundx/features/shared/presentation/base/widget_view.dart';
 import 'package:soundx/features/shared/presentation/providers/language_providers.dart';
@@ -52,13 +53,10 @@ class _LoginPageController extends ConsumerState<LoginPage>
         _isKeyboardShowing = false;
       }
     });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Scrollable.ensureVisible(_emailFieldKey.currentContext!);
-    });
   }
 
   void _onPressForgotPasswordLink() {
-    print('Press forgot password link');
+    goRouterConfig.push('\\forgot-password');
   }
 
   void _onPressLogin() {
@@ -66,7 +64,7 @@ class _LoginPageController extends ConsumerState<LoginPage>
   }
 
   void _onPressSignUp() {
-    print('Press sign up button');
+    goRouterConfig.push('\\sign-up');
   }
 
   void _onPressLoginWithGoogle() {
@@ -82,6 +80,7 @@ class _LoginPageController extends ConsumerState<LoginPage>
 
 class _LoginPageView extends WidgetView<LoginPage, _LoginPageController> {
   const _LoginPageView(super.state, {super.key, this.ref});
+
   final WidgetRef? ref;
 
   @override
@@ -143,7 +142,7 @@ class _LoginPageView extends WidgetView<LoginPage, _LoginPageController> {
                   loginWithGoogleLabel: context.tr.loginWithGoogle,
                   orLabel: context.tr.or,
                 ),
-                if (state._isKeyboardShowing) AppSizes.s10.verticalGap,
+                AppSizes.s32.verticalGap,
               ],
             ),
           ),

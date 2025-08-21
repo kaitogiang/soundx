@@ -27,9 +27,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "agreeString": MessageLookupByLibrary.simpleMessage("Tôi đồng ý với "),
     "andString": MessageLookupByLibrary.simpleMessage(" và "),
     "appName": MessageLookupByLibrary.simpleMessage("Ứng dụng SoundX"),
+    "cancelButton": MessageLookupByLibrary.simpleMessage("Hủy"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Xác nhận mật khẩu",
     ),
+    "continueButton": MessageLookupByLibrary.simpleMessage("Tiếp tục"),
     "createYourAccount": MessageLookupByLibrary.simpleMessage(
       "Tạo tài khoản của bạn",
     ),
@@ -59,6 +61,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Mật khẩu không khớp",
     ),
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("Chính sách bảo mật"),
+    "resetYourPassword": MessageLookupByLibrary.simpleMessage(
+      "Khôi phục mật khẩu của bạn",
+    ),
     "signedUpName": MessageLookupByLibrary.simpleMessage("Họ và tên"),
     "somethingWrong": MessageLookupByLibrary.simpleMessage(
       "Đã xảy ra lỗi. Vui lòng thử lại.",
