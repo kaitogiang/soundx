@@ -20,6 +20,8 @@ import 'package:soundx/features/auth/data/repsitories_impl/remote_auth_repositor
     as _i213;
 import 'package:soundx/features/auth/domain/repositories/remote_auth_repositories.dart'
     as _i267;
+import 'package:soundx/features/auth/domain/usecases/reset_password_usecase.dart'
+    as _i792;
 import 'package:soundx/features/auth/domain/usecases/sign_in_with_google_usecase.dart'
     as _i809;
 import 'package:soundx/features/auth/domain/usecases/sign_out_usecase.dart'
@@ -45,6 +47,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i267.RemoteAuthRepositories>(
       () => _i213.RemoteAuthRepositoriesImpl(gh<_i214.AuthRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i792.ResetPasswordUseCase>(
+      () => _i792.ResetPasswordUseCase(gh<_i267.RemoteAuthRepositories>()),
     );
     gh.lazySingleton<_i199.SignOutUseCase>(
       () => _i199.SignOutUseCase(gh<_i267.RemoteAuthRepositories>()),

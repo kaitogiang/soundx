@@ -48,5 +48,9 @@
   "fillAllRequired": "Please fill in all required fields.",
   "resetYourPassword": "Reset your password",
   "cancelButton": "Cancel",
-  "continueButton": "Continue"
+  "continueButton": "Continue",
+  "backToLogin": "Back to Login",
+  "checkYourEmailTitle": "Check your mail",
+  "pleaseCheckYourMail": "Please check your email.",
+  "weHaveSentEmailWithLink": "We have sent an email that contains a link to reset your password"
 }

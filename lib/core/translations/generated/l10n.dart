@@ -308,6 +308,46 @@ class AppTranslate {
   String get continueButton {
     return Intl.message('Continue', name: 'continueButton', desc: '', args: []);
   }
+
+  /// `Back to Login`
+  String get backToLogin {
+    return Intl.message(
+      'Back to Login',
+      name: 'backToLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Check your mail`
+  String get checkYourEmailTitle {
+    return Intl.message(
+      'Check your mail',
+      name: 'checkYourEmailTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check your email.`
+  String get pleaseCheckYourMail {
+    return Intl.message(
+      'Please check your email.',
+      name: 'pleaseCheckYourMail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We have sent an email that contains a link to reset your password`
+  String get weHaveSentEmailWithLink {
+    return Intl.message(
+      'We have sent an email that contains a link to reset your password',
+      name: 'weHaveSentEmailWithLink',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppTranslate> {

@@ -25,6 +25,19 @@ class AppAssets {
     'assets/icons/google_icon.svg',
   );
 
+  /// File path: assets/icons/mdi_eye.svg
+  static const SvgGenImage iconsMdiEye = SvgGenImage(
+    'assets/icons/mdi_eye.svg',
+  );
+
+  /// File path: assets/icons/mdi_hide.svg
+  static const SvgGenImage iconsMdiHide = SvgGenImage(
+    'assets/icons/mdi_hide.svg',
+  );
+
+  /// File path: assets/png/check.png
+  static const AssetGenImage pngCheck = AssetGenImage('assets/png/check.png');
+
   /// File path: assets/png/soundx_logo.png
   static const AssetGenImage pngSoundxLogo = AssetGenImage(
     'assets/png/soundx_logo.png',
@@ -44,6 +57,9 @@ class AppAssets {
   static List<dynamic> get values => [
     aEnv,
     iconsGoogleIcon,
+    iconsMdiEye,
+    iconsMdiHide,
+    pngCheck,
     pngSoundxLogo,
     pngUkFlag,
     pngVietnamFlag,

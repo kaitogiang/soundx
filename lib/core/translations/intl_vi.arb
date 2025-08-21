@@ -48,5 +48,9 @@
   "fillAllRequired": "Vui lòng điền tất cả các trường bắt buộc.",
   "resetYourPassword": "Khôi phục mật khẩu của bạn",
   "cancelButton": "Hủy",
-  "continueButton": "Tiếp tục"
+  "continueButton": "Tiếp tục",
+  "backToLogin": "Trở về Đăng nhập",
+  "checkYourEmailTitle": "Kiểm tra mail của bạn",
+  "pleaseCheckYourMail": "Hãy kiểm tra email của bạn.",
+  "weHaveSentEmailWithLink": "Chúng tôi đã gửi một email chứa liên kết để đặt lại mật khẩu của bạn"
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:overlay_notification/overlay_notification.dart';
 import 'package:soundx/core/constants/app_color.dart';
 import 'package:soundx/core/constants/app_text_style.dart';
 import 'package:soundx/core/extensions/context_extension.dart';
@@ -25,6 +26,8 @@ class _LoginPageController extends ConsumerState<LoginPage>
   bool _isKeyboardShowing = false;
   final GlobalKey _googleButtonKey = GlobalKey();
   final GlobalKey _emailFieldKey = GlobalKey();
+  bool _isValidEmail = false;
+  bool _isValidPassword = false;
 
   @override
   void initState() {
@@ -61,6 +64,12 @@ class _LoginPageController extends ConsumerState<LoginPage>
 
   void _onPressLogin() {
     print('Press login button');
+    if (!_isValidEmail || !_isValidPassword) {
+      toast(context.tr.fillAllRequired);
+      return;
+    }
+
+    //Login here
   }
 
   void _onPressSignUp() {
@@ -164,13 +173,17 @@ class _LoginPageView extends WidgetView<LoginPage, _LoginPageController> {
           hintText: emailHint,
           filled: true,
           keyboardType: TextInputType.emailAddress,
+          validateType: ValidateType.email,
+          onValid: (isValid) => state._isValidEmail = isValid,
         ),
         AppSizes.s10.verticalGap,
         AppTextField(
           controller: state._passwordController,
           hintText: passwordHint,
           filled: true,
-          obscureText: true,
+          // obscureText: true,
+          validateType: ValidateType.password,
+          onValid: (isValid) => state._isValidPassword = isValid,
         ),
         Align(
           alignment: Alignment.bottomRight,

@@ -54,4 +54,13 @@ class RemoteAuthRepositoriesImpl implements RemoteAuthRepositories {
       rethrow;
     }
   }
+
+  @override
+  Future<void> sendPasswordResetEmail({required String email}) async {
+    try {
+      await authRemoteDataSource.sendPasswordResetEmail(email);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

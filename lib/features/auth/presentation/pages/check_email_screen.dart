@@ -2,24 +2,22 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:overlay_notification/overlay_notification.dart';
 import 'package:soundx/core/constants/app_color.dart';
 import 'package:soundx/core/constants/app_text_style.dart';
 import 'package:soundx/core/extensions/context_extension.dart';
-import 'package:soundx/core/navgiation/navigation_config.dart';
 import 'package:soundx/features/auth/presentation/providers/auth_providers.dart';
 import 'package:soundx/features/shared/presentation/base/widget_view.dart';
 import 'package:soundx/soundx.dart';
 
-class ForgotPasswordPage extends ConsumerStatefulWidget {
-  const ForgotPasswordPage({super.key});
+class CheckYourEmailPage extends ConsumerStatefulWidget {
+  const CheckYourEmailPage({super.key});
 
   @override
-  ConsumerState<ForgotPasswordPage> createState() =>
-      _ForgotPasswordController();
+  ConsumerState<CheckYourEmailPage> createState() =>
+      _CheckYourEmailController();
 }
 
-class _ForgotPasswordController extends ConsumerState<ForgotPasswordPage>
+class _CheckYourEmailController extends ConsumerState<CheckYourEmailPage>
     with WidgetsBindingObserver {
   final _emailController = TextEditingController();
   final _scrollController = ScrollController();
@@ -45,33 +43,19 @@ class _ForgotPasswordController extends ConsumerState<ForgotPasswordPage>
     });
   }
 
-  void _onContinue() {
-    if (!_isValidEmail) {
-      toast(context.tr.fillAllRequired);
-      return;
-    }
-    print('Press login button');
-    context.go('\\check-email');
-  }
-
-  void _onCancel() {
-    goRouterConfig.pop();
-  }
-
-  void _onPressLoginWithGoogle() {
-    print('Press login with google');
-    ref.read(signInWithGoogleProvider);
+  void _onBackToLogin() {
+    context.go('\\login');
   }
 
   @override
   Widget build(BuildContext context) {
-    return _LoginPageView(this, ref: ref);
+    return _CheckYourEmailPageView(this, ref: ref);
   }
 }
 
-class _LoginPageView
-    extends WidgetView<ForgotPasswordPage, _ForgotPasswordController> {
-  const _LoginPageView(super.state, {super.key, this.ref});
+class _CheckYourEmailPageView
+    extends WidgetView<CheckYourEmailPage, _CheckYourEmailController> {
+  const _CheckYourEmailPageView(super.state, {super.key, this.ref});
 
   final WidgetRef? ref;
 
@@ -96,39 +80,42 @@ class _LoginPageView
         ),
         child: Stack(
           children: [
-            Padding(
-              padding: AppSizes.s16.horizontalPadding,
-              child: SingleChildScrollView(
-                controller: state._scrollController,
-                child: Column(
-                  children: <Widget>[
-                    AppSizes.s32.verticalGap,
-                    FractionallySizedBox(
-                      widthFactor: AppPercents.p50,
-                      child: AppAssets.pngSoundxLogo.image(),
-                    ),
-                    AppSizes.s10.verticalGap,
-                    Text(
-                      context.tr.appName.toUpperCase(),
-                      style: AppTextStyle.textSize20(
-                        fontWeight: FontWeight.bold,
+            SingleChildScrollView(
+              controller: state._scrollController,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: context.heightScreen),
+                child: Padding(
+                  padding: AppSizes.s10.horizontalPadding,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      AppSizes.s32.verticalGap,
+                      FractionallySizedBox(
+                        widthFactor: AppPercents.p50,
+                        child: AppAssets.pngCheck.image(),
                       ),
-                    ),
-                    AppSizes.s32.verticalGap,
-                    _buildFormTitle(context.tr.resetYourPassword),
-                    _buildTextFields(
-                      emailHint: context.tr.loginEmailHintText,
-                      nameHint: context.tr.signedUpName,
-                      passwordHint: context.tr.loginPasswordHintText,
-                      confirmHint: context.tr.confirmPassword,
-                    ),
-                    AppSizes.s32.verticalGap,
-                    _buildButtons(
-                      cancelLabel: context.tr.cancelButton,
-                      continueLabel: context.tr.continueButton,
-                    ),
-                    AppSizes.s20.verticalGap,
-                  ],
+                      AppSizes.s10.verticalGap,
+                      Text(
+                        context.tr.checkYourEmailTitle,
+                        style: AppTextStyle.textSize20(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        context.tr.pleaseCheckYourMail,
+                        style: AppTextStyle.textSize16(),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        context.tr.weHaveSentEmailWithLink,
+                        style: AppTextStyle.textSize16(),
+                        textAlign: TextAlign.center,
+                      ),
+                      AppSizes.s32.verticalGap,
+                      _buildButtons(backLabel: context.tr.backToLogin),
+                      AppSizes.s20.verticalGap,
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -229,19 +216,11 @@ class _LoginPageView
     );
   }
 
-  Widget _buildButtons({
-    required String cancelLabel,
-    required String continueLabel,
-  }) {
+  Widget _buildButtons({required String backLabel}) {
     return Column(
       children: <Widget>[
-        AppButton(label: continueLabel, onPressed: state._onContinue),
+        AppButton(label: backLabel, onPressed: state._onBackToLogin),
         AppSizes.s10.verticalGap,
-        AppButton(
-          label: cancelLabel,
-          onPressed: state._onCancel,
-          buttonType: AppButtonType.outline,
-        ),
       ],
     );
   }
