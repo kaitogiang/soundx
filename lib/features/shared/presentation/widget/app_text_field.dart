@@ -3,6 +3,7 @@ import 'package:soundx/core/constants/app_color.dart';
 import 'package:soundx/core/constants/app_text_style.dart';
 import 'package:soundx/core/extensions/context_extension.dart';
 import 'package:soundx/features/shared/presentation/base/widget_view.dart';
+import 'package:soundx/soundx.dart';
 
 enum ValidateType {
   none,
@@ -43,7 +44,7 @@ class AppTextField extends StatefulWidget {
   final Color? fillColor;
 
   //Behavior-related properties
-  final bool obscureText;
+  final bool? obscureText;
   final bool enabled;
   final bool readOnly;
   final bool autofocus;
@@ -81,7 +82,7 @@ class AppTextField extends StatefulWidget {
     this.contentPadding,
     this.filled,
     this.fillColor,
-    this.obscureText = false,
+    this.obscureText,
     this.enabled = true,
     this.readOnly = false,
     this.autofocus = false,
@@ -103,12 +104,52 @@ class AppTextField extends StatefulWidget {
 
 //Controller
 class _AppTextFieldController extends State<AppTextField> {
-  final TextFieldValidator validator = TextFieldValidator();
+  final TextFieldEvents validator = TextFieldEvents();
 
   @override
   void initState() {
     super.initState();
     _validatorField();
+  }
+
+  bool isShowPasswordToggle() {
+    return widget.validateType == ValidateType.password ||
+        widget.validateType == ValidateType.confirmPassword;
+  }
+
+  Widget _buildDefaultSuffixIcon() {
+    if (isShowPasswordToggle()) {
+      final isShowPassword = validator.isShowPassword;
+      final icon = Builder(
+        builder: (context) {
+          if (!isShowPassword) {
+            return AppAssets.iconsMdiEye.svg(
+              colorFilter: ColorFilter.mode(AppColors.grey, BlendMode.srcIn),
+            );
+          }
+          return AppAssets.iconsMdiHide.svg(
+            colorFilter: ColorFilter.mode(AppColors.grey, BlendMode.srcIn),
+          );
+        },
+      );
+      return GestureDetector(
+        onTap: () {
+          print('Press suffix icon');
+          validator.handleVisibilityPassword();
+        },
+        child: Container(padding: AppSizes.s10.allPadding, child: icon),
+      );
+    }
+    return const SizedBox.shrink();
+  }
+
+  TextInputType _getKeyboardType() {
+    switch (widget.validateType) {
+      case ValidateType.email:
+        return TextInputType.emailAddress;
+      default:
+        return TextInputType.text;
+    }
   }
 
   void _validatorField() {
@@ -212,7 +253,7 @@ class _AppTextFieldView
             hintText: widget.hintText,
             labelText: widget.labelText,
             prefixIcon: widget.prefixIcon,
-            suffixIcon: widget.suffixIcon,
+            suffixIcon: widget.suffixIcon ?? state._buildDefaultSuffixIcon(),
             hintStyle: AppTextStyle.textSize16(textColor: Colors.grey),
             suffix: widget.suffix,
             prefix: widget.prefix,
@@ -220,10 +261,10 @@ class _AppTextFieldView
             filled: widget.filled,
             fillColor: widget.fillColor ?? AppColors.whiteColor,
           ),
-          obscureText: widget.obscureText,
+          obscureText: widget.obscureText ?? !state.validator.isShowPassword,
           enabled: widget.enabled,
           readOnly: widget.readOnly,
-          keyboardType: widget.keyboardType,
+          keyboardType: widget.keyboardType ?? state._getKeyboardType(),
           style: AppTextStyle.textSize16(),
           onFieldSubmitted: (value) {
             print('Field submit');
@@ -235,11 +276,14 @@ class _AppTextFieldView
   }
 }
 
-class TextFieldValidator extends ChangeNotifier {
+class TextFieldEvents extends ChangeNotifier {
   String? _errorText;
   bool isFirstFocus = true;
+  bool _isShowPassword = false;
 
   String? get errorText => _errorText;
+
+  bool get isShowPassword => _isShowPassword;
 
   void resetErrorText() {
     _errorText = null;
@@ -322,5 +366,11 @@ class TextFieldValidator extends ChangeNotifier {
     isFirstFocus = false;
     resetErrorText();
     return true;
+  }
+
+  //Handle show/hide password field
+  void handleVisibilityPassword() {
+    _isShowPassword = !_isShowPassword;
+    notifyListeners();
   }
 }

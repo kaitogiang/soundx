@@ -14,4 +14,6 @@ abstract class RemoteAuthRepositories {
     required String displayName,
     required String password,
   });
+
+  Future<void> sendPasswordResetEmail({required String email});
 }

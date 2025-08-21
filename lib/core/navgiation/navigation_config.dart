@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:soundx/core/config/app_event_bus.dart';
 import 'package:soundx/core/events/unfocus_keyboard_event.dart';
+import 'package:soundx/features/auth/presentation/pages/check_email_screen.dart';
 import 'package:soundx/features/auth/presentation/pages/forgot_password_page.dart';
 import 'package:soundx/features/auth/presentation/pages/login_page.dart';
 import 'package:soundx/features/auth/presentation/pages/sign_up_page.dart';
@@ -40,6 +41,13 @@ final goRouterConfig = GoRouter(
           name: 'forgotPassword',
           builder: (context, state) {
             return ForgotPasswordPage();
+          },
+        ),
+        GoRoute(
+          path: '/check-email',
+          name: 'checkEmail',
+          builder: (context, state) {
+            return CheckYourEmailPage();
           },
         ),
         GoRoute(

@@ -73,6 +73,10 @@ class _SignUpPageController extends ConsumerState<SignUpPage>
     print('Press login button');
   }
 
+  void _onCancel() {
+    goRouterConfig.pop();
+  }
+
   void _onPressSignUp() {
     print('Press sign up button');
     if (_isValidRequest()) {
@@ -135,60 +139,39 @@ class _LoginPageView extends WidgetView<SignUpPage, _SignUpPageController> {
             stops: [AppPercents.p0, AppPercents.p50, AppPercents.p100],
           ),
         ),
-        child: Stack(
-          children: [
-            Padding(
-              padding: AppSizes.s16.horizontalPadding,
-              child: SingleChildScrollView(
-                controller: state._scrollController,
-                child: Column(
-                  children: <Widget>[
-                    AppSizes.s32.verticalGap,
-                    FractionallySizedBox(
-                      widthFactor: AppPercents.p50,
-                      child: AppAssets.pngSoundxLogo.image(),
-                    ),
-                    AppSizes.s10.verticalGap,
-                    Text(
-                      context.tr.appName.toUpperCase(),
-                      style: AppTextStyle.textSize20(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    AppSizes.s32.verticalGap,
-                    _buildFormTitle(context.tr.createYourAccount),
-                    _buildTextFields(
-                      emailHint: context.tr.loginEmailHintText,
-                      nameHint: context.tr.signedUpName,
-                      passwordHint: context.tr.loginPasswordHintText,
-                      confirmHint: context.tr.confirmPassword,
-                    ),
-                    AppSizes.s32.verticalGap,
-                    _buildButtons(
-                      loginLabel: context.tr.pageLoginButtonTitle,
-                      signUpLabel: context.tr.pageRegisterButtonTitle,
-                      loginWithGoogleLabel: context.tr.loginWithGoogle,
-                      orLabel: context.tr.or,
-                    ),
-                    AppSizes.s20.verticalGap,
-                  ],
+        child: Padding(
+          padding: AppSizes.s16.horizontalPadding,
+          child: SingleChildScrollView(
+            controller: state._scrollController,
+            child: Column(
+              children: <Widget>[
+                AppSizes.s32.verticalGap,
+                FractionallySizedBox(
+                  widthFactor: AppPercents.p50,
+                  child: AppAssets.pngSoundxLogo.image(),
                 ),
-              ),
-            ),
-            Positioned(
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: AppSizes.s4),
-                  child: IconButton(
-                    onPressed: () {
-                      goRouterConfig.pop();
-                    },
-                    icon: Icon(Icons.arrow_back_ios),
-                  ),
+                AppSizes.s10.verticalGap,
+                Text(
+                  context.tr.appName.toUpperCase(),
+                  style: AppTextStyle.textSize20(fontWeight: FontWeight.bold),
                 ),
-              ),
+                AppSizes.s32.verticalGap,
+                _buildFormTitle(context.tr.createYourAccount),
+                _buildTextFields(
+                  emailHint: context.tr.loginEmailHintText,
+                  nameHint: context.tr.signedUpName,
+                  passwordHint: context.tr.loginPasswordHintText,
+                  confirmHint: context.tr.confirmPassword,
+                ),
+                AppSizes.s32.verticalGap,
+                _buildButtons(
+                  cancelLabel: context.tr.cancelButton,
+                  signUpLabel: context.tr.pageRegisterButtonTitle,
+                ),
+                AppSizes.s20.verticalGap,
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -295,7 +278,6 @@ class _LoginPageView extends WidgetView<SignUpPage, _SignUpPageController> {
           controller: state._passwordController,
           hintText: passwordHint,
           filled: true,
-          obscureText: true,
           validateType: ValidateType.password,
           onValid: (value) {
             state._isValidPassword = value;
@@ -306,7 +288,6 @@ class _LoginPageView extends WidgetView<SignUpPage, _SignUpPageController> {
           controller: state._confirmPasswordController,
           hintText: confirmHint,
           filled: true,
-          obscureText: true,
           validateType: ValidateType.confirmPassword,
           confirmPasswordController: state._passwordController,
           onValid: (value) {
@@ -318,14 +299,18 @@ class _LoginPageView extends WidgetView<SignUpPage, _SignUpPageController> {
   }
 
   Widget _buildButtons({
-    required String loginLabel,
+    required String cancelLabel,
     required String signUpLabel,
-    required String loginWithGoogleLabel,
-    required String orLabel,
   }) {
     return Column(
       children: <Widget>[
         AppButton(label: signUpLabel, onPressed: state._onPressSignUp),
+        AppSizes.s10.verticalGap,
+        AppButton(
+          label: cancelLabel,
+          onPressed: state._onCancel,
+          buttonType: AppButtonType.outline,
+        ),
       ],
     );
   }

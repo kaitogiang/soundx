@@ -27,7 +27,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "agreeString": MessageLookupByLibrary.simpleMessage("I agree to the "),
     "andString": MessageLookupByLibrary.simpleMessage(" and "),
     "appName": MessageLookupByLibrary.simpleMessage("SoundX app"),
+    "backToLogin": MessageLookupByLibrary.simpleMessage("Back to Login"),
     "cancelButton": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "checkYourEmailTitle": MessageLookupByLibrary.simpleMessage(
+      "Check your mail",
+    ),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
     "continueButton": MessageLookupByLibrary.simpleMessage("Continue"),
     "createYourAccount": MessageLookupByLibrary.simpleMessage(
@@ -60,6 +64,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordNotMatch": MessageLookupByLibrary.simpleMessage(
       "Passwords do not match",
     ),
+    "pleaseCheckYourMail": MessageLookupByLibrary.simpleMessage(
+      "Please check your email.",
+    ),
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
     "resetYourPassword": MessageLookupByLibrary.simpleMessage(
       "Reset your password",
@@ -70,6 +77,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "termsOfService": MessageLookupByLibrary.simpleMessage("Terms of Service"),
     "vietnameseLanguage": MessageLookupByLibrary.simpleMessage("Vietnamese"),
+    "weHaveSentEmailWithLink": MessageLookupByLibrary.simpleMessage(
+      "We have sent an email that contains a link to reset your password",
+    ),
     "welcome": MessageLookupByLibrary.simpleMessage("Welcome to my app"),
   };
 }

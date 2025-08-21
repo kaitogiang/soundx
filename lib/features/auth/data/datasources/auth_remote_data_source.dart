@@ -77,4 +77,13 @@ class AuthRemoteDataSource {
       return null;
     }
   }
+
+  Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+      print('Password reset email sent');
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

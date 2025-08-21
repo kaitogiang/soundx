@@ -27,7 +27,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "agreeString": MessageLookupByLibrary.simpleMessage("Tôi đồng ý với "),
     "andString": MessageLookupByLibrary.simpleMessage(" và "),
     "appName": MessageLookupByLibrary.simpleMessage("Ứng dụng SoundX"),
+    "backToLogin": MessageLookupByLibrary.simpleMessage("Trở về Đăng nhập"),
     "cancelButton": MessageLookupByLibrary.simpleMessage("Hủy"),
+    "checkYourEmailTitle": MessageLookupByLibrary.simpleMessage(
+      "Kiểm tra mail của bạn",
+    ),
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Xác nhận mật khẩu",
     ),
@@ -60,6 +64,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordNotMatch": MessageLookupByLibrary.simpleMessage(
       "Mật khẩu không khớp",
     ),
+    "pleaseCheckYourMail": MessageLookupByLibrary.simpleMessage(
+      "Hãy kiểm tra email của bạn.",
+    ),
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("Chính sách bảo mật"),
     "resetYourPassword": MessageLookupByLibrary.simpleMessage(
       "Khôi phục mật khẩu của bạn",
@@ -72,6 +79,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Điều khoản dịch vụ",
     ),
     "vietnameseLanguage": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
+    "weHaveSentEmailWithLink": MessageLookupByLibrary.simpleMessage(
+      "Chúng tôi đã gửi một email chứa liên kết để đặt lại mật khẩu của bạn",
+    ),
     "welcome": MessageLookupByLibrary.simpleMessage(
       "Chào mừng bạn đến với ứng dụng của tôi",
     ),
