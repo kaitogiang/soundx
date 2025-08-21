@@ -45,5 +45,8 @@
   "passwordAtLeast8": "Mật khẩu phải ít nhất 8 ký tự",
   "passwordNotMatch": "Mật khẩu không khớp",
   "somethingWrong": "Đã xảy ra lỗi. Vui lòng thử lại.",
-  "fillAllRequired": "Vui lòng điền tất cả các trường bắt buộc."
+  "fillAllRequired": "Vui lòng điền tất cả các trường bắt buộc.",
+  "resetYourPassword": "Khôi phục mật khẩu của bạn",
+  "cancelButton": "Hủy",
+  "continueButton": "Tiếp tục"
 }

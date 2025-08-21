@@ -53,13 +53,10 @@ class _LoginPageController extends ConsumerState<LoginPage>
         _isKeyboardShowing = false;
       }
     });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Scrollable.ensureVisible(_emailFieldKey.currentContext!);
-    });
   }
 
   void _onPressForgotPasswordLink() {
-    print('Press forgot password link');
+    goRouterConfig.push('\\forgot-password');
   }
 
   void _onPressLogin() {

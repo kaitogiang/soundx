@@ -1,0 +1,3 @@
+class UnfocusKeyboardEvent {
+  const UnfocusKeyboardEvent();
+}

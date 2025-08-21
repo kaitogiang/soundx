@@ -26,6 +26,7 @@ class AppTextField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final ValueChanged<bool>? onValid;
   final VoidCallback? onTap;
+  final Function(String)? onFieldSubmitted;
 
   //UI-related properties
   final String? labelText;
@@ -93,6 +94,7 @@ class AppTextField extends StatefulWidget {
     this.minLines,
     this.validateType = ValidateType.none,
     this.confirmPasswordController,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -225,6 +227,7 @@ class _AppTextFieldView
           style: AppTextStyle.textSize16(),
           onFieldSubmitted: (value) {
             print('Field submit');
+            widget.onFieldSubmitted?.call(value);
           },
         );
       },

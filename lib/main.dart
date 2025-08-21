@@ -62,17 +62,3 @@ class _MyAppState extends ConsumerState<MyApp> {
     );
   }
 }
-
-// class MyHomePage extends ConsumerWidget {
-//   const MyHomePage({super.key});
-//
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     // final loginStatus = ref.watch(loginStatusProvider);
-//     final currentUser = ref.watch(currentSignedInUserProvider);
-//     if (currentUser != null) {
-//       return MusicLibraryPage();
-//     }
-//     return AuthPage();
-//   }
-// }

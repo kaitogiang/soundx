@@ -288,6 +288,26 @@ class AppTranslate {
       args: [],
     );
   }
+
+  /// `Reset your password`
+  String get resetYourPassword {
+    return Intl.message(
+      'Reset your password',
+      name: 'resetYourPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancelButton {
+    return Intl.message('Cancel', name: 'cancelButton', desc: '', args: []);
+  }
+
+  /// `Continue`
+  String get continueButton {
+    return Intl.message('Continue', name: 'continueButton', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppTranslate> {
